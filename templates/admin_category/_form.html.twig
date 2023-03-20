@@ -1,0 +1,41 @@
+{{ form_start(form) }}
+    <div class="row justify-content-between align-items-center">
+        <div class="col-4">
+            {{ form_row(form.imageFile) }}
+        </div>
+        <div class="col-4">
+            {# je laisse la condition car l'image n'éxiste pas lors de la création d'une nv catégorie #}
+            {% if category.imageName is not null %}
+               <img 
+                src="{{ asset('images/category/' ~ category.imageName) }}" 
+                alt="{% if category.imageDescription is not null %} {{ category.imageDescription }}
+                    {% else %} Image illustrant la catégorie : {{ category.Name}} {% endif %}"
+                /> 
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="row justify-content-between">
+        <div class="col-6 col-md-3">
+            {{ form_row(form.name) }}
+        </div>
+        <div class="col-6 col-md-3">
+            {{ form_row(form.tag) }}
+        </div>
+        <div class="col-6 col-md-4">
+            {{ form_row(form.imageDescription) }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            {{ form_row(form.description) }}
+        </div>
+
+    </div>
+
+    {{include("common/_required_message.html.twig")}}
+
+    <button class="btn btn-success mt-3" title="{{ button_label|default('Enregistrer') }}">
+        {{ button_label|default('Enregistrer') }}
+    </button>
+{{ form_end(form) }}

@@ -7,6 +7,7 @@
 /public/bundles/
 /var/
 /vendor/
+/node_mobules/
 ###< symfony/framework-bundle ###
 
 ###> phpunit/phpunit ###

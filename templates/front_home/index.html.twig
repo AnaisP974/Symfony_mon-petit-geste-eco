@@ -1,0 +1,80 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mon Petit Geste Eco - Accueil{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <img src="{{ asset('images/home2.jpg')}}" alt="Image d'accueil de décoration">
+    </div>
+
+    <div class="container">
+
+        <div class=" row featurette my-5 d-flex flex-wrap justify-content-around">
+            <hr class="featurette-divider">
+            <h2 class="mb-2 text-center">Catégories :</h2>
+            <hr class="featurette-divider mb-5">
+        </div>
+        <div class=" row featurette my-5 d-flex flex-wrap justify-content-around align-items-stretch">
+      
+        
+            {% for category in categories %}
+                <div class="col-lg-3 text-center d-flex flex-wrap ">
+                    <div>
+                    {% if category.imageName is not null %}
+                        <img 
+                            class="bd-placeholder-img rounded-circle"
+                            src="{{ asset('images/category/') ~ category.imageName}}" 
+                            alt="{% if category.imageDescription is not null %} {{ category.imageDescription }}
+                            {% else %} Image de la catégorie : {{ category.Name}} {% endif %}"
+                        />
+                    {% endif %}
+                    <h3 class="fw-normal">{{ category.Name}}</h3>
+                    <p class="fs-6">{{ category.description}}</p>
+                    </div>
+                    
+                    <a class="btn btn-success align-self-end mx-auto" href="#" >Voir produits &raquo;</a>
+                </div>
+            {% endfor %}
+
+        </div>
+    </div>
+
+    <div class="container">
+        <hr class="featurette-divider">
+        <h2 class="mb-2 text-center">Blog :</h2>
+        <hr class="featurette-divider mb-5">
+       
+
+        {% for article in articles %}
+            <div class="row featurette p-5">
+            {% if loop.index is divisible by(2) %}
+                <div class="featurette-heading col-md-7">
+                    <h2 class="fw-normal">
+                        {{ article.title }} 
+                        {% if article.subtitle is not null %}<span class="text-muted">{{ article.subtitle}}</span>{% endif %}
+                    </h2>
+                    <div>{{ article.description|raw }}</div>
+                </div>
+                <div class="col-md-5">
+                    <img src="{{ asset('images/articleBlog/' ~ article.imageName) }}" alt="{{ article.imageDescription}}" class="img-fluid mx-auto">
+                </div>
+            {% else %}
+                <div class="col-md-5">
+                    <img src="{{ asset('images/articleBlog/' ~ article.imageName) }}" alt="{{ article.imageDescription}}" class="img-fluid mx-auto">
+                </div>
+
+                <div class="featurette-heading col-md-7">
+                    <h2 class="fw-normal">
+                        {{ article.title }} 
+                        {% if article.subtitle is not null %}<span class="text-muted">{{ article.subtitle}}</span>{% endif %}
+                    </h2>
+                    <div>{{ article.description|raw }}</div>
+                </div>
+            {% endif %}
+
+            </div>
+
+        <hr class="featurette-divider">
+        {% endfor %}
+    </div>
+{% endblock %}

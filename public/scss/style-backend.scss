@@ -1,0 +1,36 @@
+body{
+    
+    .bg-top-sidebar{
+        background-color: 	#2C5545 !important;
+    }
+    .bg-sidebar{
+        background-color: 	#808588 !important;
+    }
+    .nav-link{
+            color: white !important;
+        
+    }
+    .nav-height{
+        height: 100vh;
+    }
+    label{
+        &.required{
+            &:after{
+                content:"*";
+                color: red;
+            }
+        }
+    }
+    main{
+        .img-dashboard{
+            max-width: 100%;
+        }
+        .show{
+            color: blue;
+        }
+        .edit{
+            color: green;
+        }
+        
+    }
+}
