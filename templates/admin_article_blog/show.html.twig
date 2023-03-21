@@ -1,0 +1,61 @@
+{% extends 'base-backend.html.twig' %}
+
+{% block title %}Article - {{ article_blog.title }}{% endblock %}
+
+{% block body %}
+    <a href="{{ path('app_admin_article_blog_index') }}"class="btn btn-secondary mt-4 mb-2 align-items-center" title="Retour">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left me-1" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
+        </svg>Retour
+    </a>
+
+    <div class="d-flex flex-wrap justify-content-between align-items-center  mb-4">
+        <h1>Article - {{ article_blog.title }}</h1>
+        {{ include('admin_article_blog/_delete_form.html.twig') }}
+    </div>
+
+    <div class="card mb-3" style="max-width: auto;">
+        <div class="row g-0 align-items-center p-2">
+            <div class="col-md-4">
+                {% if article_blog.imageName is not null %}
+                    <a href="{{ asset('images/articleBlog/') ~ article_blog.imageName}}" data-lightbox data-image-alt="{% if article_blog.imageDescription is not null %} {{ article_blog.imageDescription }}{% else %} Image de la catégorie : {{ article_blog.Name}} {% endif %}">
+                        <img 
+                            class="img-fluid rounded-start"
+                            src="{{ asset('images/articleBlog/' ~ article_blog.imageName) }}" 
+                            alt="{% if article_blog.imageDescription is not null %} {{ article_blog.imageDescription }}
+                                {% else %} Image illustrant la catégorie : {{ article_blog.Name}} {% endif %}"
+                        /> 
+                    </a>
+                {% endif %}
+            </div>
+            <div class="col-md-8">
+                <div class="card-body">
+                    <div class="d-flex justify-content-end">
+                    {% if article_blog.isActive %}
+                        <img src="{{ asset('images/admin_article/clipboard-check.svg')}}" class="text-success" alt="Oui">                      
+                    {% else %}
+                        <img src="{{ asset('images/admin_article/clipboard-x.svg')}}" class="text-danger" alt="Non">
+                    {% endif %}
+                    </div>
+                    <h5 class="card-title">{{ article_blog.title }}</h5>
+                    {% if article_blog.subtitle is not null %}
+                    <h6 class="text-secondary fst-italic">{{ article_blog.subtitle }}</h6>
+                    {% endif %}
+                    <p class="card-text">{{ article_blog.description|raw }}</p>
+                    <p class="card-text">De : {{ article_blog.signature }}</p>
+                    <p class="card-text"><small class="text-muted">Dernière mise à jour le : {{ article_blog.updatedAt ? article_blog.updatedAt|date('Y-m-d H:i:s') : '' }}</small></p>
+                    <p class="card-text">Description de l'image : </br>{{ article_blog.imageDescription }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <a href="{{ path('app_admin_article_blog_edit', {'id': article_blog.id}) }}" class="btn btn-success" title="Modifier">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil me-1" viewBox="0 0 16 16">
+            <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"/>
+        </svg>
+    </a>
+
+
+{% endblock %}

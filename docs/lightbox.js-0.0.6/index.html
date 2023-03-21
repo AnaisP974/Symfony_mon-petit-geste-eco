@@ -1,0 +1,162 @@
+<!DOCTYPE HTML>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8"/>
+  <title>Lightbox.js - A simple and easily customizable lightbox plugin.</title>
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600" rel="stylesheet">
+  <link href="assets/dist/css/style.css" rel="stylesheet">
+  <link href="lightbox/lightbox.min.css" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <link rel="canonical" href="https://victordiego.com/lightbox/">
+  <meta name="title" content="Lightbox.js">
+  <meta name="description" content="Lightbox.js is a simple, lightweight and easily customizable lightbox plugin built with Javascript and CSS which suports images, videos (Vimeo/Youtube) and inline content.">
+  <meta name="keywords" content="lightbox, plugin, javascript, responsive, lightweight">
+  <meta name="thumbnail" content="https://victordiego.com/lightbox/assets/dist/img/lightbox-thumbnail.jpg">
+  <meta property="og:title" content="Lightbox.js">
+  <meta property="og:description" content="Lightbox.js is a simple, lightweight and easily customizable lightbox plugin built with Javascript and CSS which suports images, videos (Vimeo/Youtube) and inline content.">
+  <meta property="og:image" content="https://victordiego.com/lightbox/assets/dist/img/lightbox-thumbnail.jpg">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="pt_br">
+  <meta property="og:site_name" content="Lightbox.js">
+  <meta property="og:url" content="https://victordiego.com/lightbox/">
+  <meta name="twitter" content="Lightbox.js" />
+  <meta name="twitter:description" content="Lightbox.js is a simple, lightweight and easily customizable lightbox plugin built with Javascript and CSS which suports images, videos (Vimeo/Youtube) and inline content.">
+  <meta name="twitter:image" content="https://victordiego.com/lightbox/assets/dist/img/lightbox-thumbnail.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@victordieggo">
+</head>
+
+<body>
+  <header>
+    <div class="wrapper align-center">
+      <h1>Lightbox.js</h1>
+      <br/>
+      <h2 class="text-block">A simple and easily customizable lightbox plugin.</h2>
+      <br/>
+      <a class="btn" href="https://github.com/victordieggo/lightbox.js/releases/latest" target="_blank">Download</a>
+      <a class="btn btn-outline" href="#get-started" data-scroll>Get started</a>
+    </div>
+  </header>
+
+  <main>
+
+    <section id="get-started" class="wrapper">
+      <h2>Get Started</h2>
+      <br/>
+      <p class="text-block">Everything you'll need is located under the lightbox/ directory. Include the javascript and css files in your HTML document and you're all set up:</p>
+      <br/>
+      <pre><code class="language-markup">&lt;link href="lightbox/lightbox.min.css" rel="stylesheet">
+&lt;script src="lightbox/lightbox.min.js">&lt;/script></code></pre>
+    </section>
+
+    <section id="usage" class="wrapper">
+      <h2>Usage</h2>
+      <br/>
+      <p class="text-block">Add the <span class="code">data-lightbox</span> attribute to an <span class="code">&#60;a></span> tag and set its <span class="code">href</span> to the content you want to be opened in the lightbox. When opening an image, you can send its alt text using the <span class="code">data-image-alt</span> attribute:</p>
+      <br/>
+      <div class="examples">
+        <a class="btn" href="assets/dist/img/image-1.png" data-lightbox data-image-alt="Image 1">
+          Image
+        </a>
+        <a class="btn" href="#modal" data-lightbox>
+          Modal
+        </a>
+        <a class="btn" href="https://vimeo.com/83897470" data-lightbox>
+          Vimeo
+        </a>
+        <a class="btn" href="https://www.youtube.com/watch?v=Xyu_MdKBXic" data-lightbox>
+          Youtube
+        </a>
+        <div id="modal" class="lightbox-hide">
+          <div class="modal-content">
+            <h3>Welcome!</h3>
+            <p>Sign in to your account.</p>
+            <form action="/lightbox.js" method="post">
+              <input type="email" name="email" placeholder="e-mail account">
+              <input type="password" name="password" placeholder="password">
+              <input class="btn" type="submit" name="submit" value="Sign In">
+            </form>
+          </div>
+        </div>
+      </div>
+      <br/>
+      <pre><code class="language-markup">&lt;a href="assets/dist/img/image-1.png" data-lightbox data-image-alt="Image 1">
+  Image
+&lt;/a>
+&lt;a href="#modal" data-lightbox>
+  Modal
+&lt;/a>
+&lt;a href="https://vimeo.com/83897470" data-lightbox>
+  Vimeo
+&lt;/a>
+&lt;a href="https://www.youtube.com/watch?v=Xyu_MdKBXic" data-lightbox>
+  Youtube
+&lt;/a>
+&lt;div id="modal" class="lightbox-hide">
+  &lt;div class="modal-content">
+    &lt;h3>Welcome!&lt;/h3>
+    &lt;p>Sign in to your account.&lt;/p>
+    &lt;form>
+      &lt;input type="email" name="email" placeholder="e-mail account">
+      &lt;input type="password" name="password" placeholder="password">
+      &lt;input class="btn" type="submit" name="submit" value="Sign In">
+    &lt;/form>
+  &lt;/div>
+&lt;/div></code></pre>
+    </section>
+
+    <section id="gallery" class="wrapper">
+      <h2>Gallery</h2>
+      <br/>
+      <p class="text-block">
+        Set the <span class="code">data-lightbox</span> attribute to <span class="code">"gallery"</span> on all <span class="code">&#60;a></span> tags under the same parent element and any previous or next items will be found automatically:</p>
+      <br/>
+      <div class="image-gallery">
+        <div class="gallery-item">
+          <a href="assets/dist/img/image-1.png" data-lightbox="gallery" data-image-alt="Image 1">
+            <img src="assets/dist/img/thumbnail-gallery.png" alt="Alt Text" />
+          </a>
+        </div>
+        <div class="gallery-item">
+          <a href="assets/dist/img/image-2.png" data-lightbox="gallery" data-image-alt="Image 2">
+            <img src="assets/dist/img/thumbnail-gallery.png" alt="Alt Text" />
+          </a>
+        </div>
+        <div class="gallery-item">
+          <a href="assets/dist/img/image-3.png" data-lightbox="gallery" data-image-alt="Image 3">
+            <img src="assets/dist/img/thumbnail-gallery.png" alt="Alt Text" />
+          </a>
+        </div>
+        <div class="gallery-item">
+          <a href="assets/dist/img/image-4.png" data-lightbox="gallery" data-image-alt="Image 4">
+            <img src="assets/dist/img/thumbnail-gallery.png" alt="Alt Text" />
+          </a>
+        </div>
+      </div>
+      <br/>
+      <pre><code class="language-markup">&lt;div class="gallery">
+  &lt;div class="gallery-item">
+    &lt;a href="assets/dist/img/image-1.png" data-lightbox="gallery" data-image-alt="Image 1">
+      &lt;img src="assets/dist/img/thumbnail-gallery.png" alt="Thumbnail 1">
+    &lt;/a>
+  &lt;/div>
+  &lt;div class="gallery-item">
+    &lt;a href="assets/dist/img/image-2.png" data-lightbox="gallery" data-image-alt="Image 2">
+      &lt;img src="assets/dist/img/thumbnail-gallery.png" alt="Thumbnail 2">
+    &lt;/a>
+  &lt;/div>
+&lt;/div></code></pre>
+    </section>
+
+  </main>
+
+  <footer class="text-block">
+    Built by <a href="https://victordiego.com/" target="_blank">Victor Diego</a> under the <a href="https://victordieggo.mit-license.org/" target="_blank">MIT license</a>.
+  </footer>
+
+  <script src="assets/dist/js/main.js"></script>
+  <script src="lightbox/lightbox.min.js"></script>
+
+</body>
+</html>

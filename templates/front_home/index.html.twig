@@ -4,7 +4,9 @@
 
 {% block body %}
     <div class="row">
-        <img src="{{ asset('images/home2.jpg')}}" alt="Image d'accueil de décoration">
+       
+            <img src="{{ asset('images/home2.jpg')}}" alt="Image d'accueil de décoration">
+       
     </div>
 
     <div class="container">
@@ -21,12 +23,14 @@
                 <div class="col-lg-3 text-center d-flex flex-wrap ">
                     <div>
                     {% if category.imageName is not null %}
-                        <img 
-                            class="bd-placeholder-img rounded-circle"
-                            src="{{ asset('images/category/') ~ category.imageName}}" 
-                            alt="{% if category.imageDescription is not null %} {{ category.imageDescription }}
-                            {% else %} Image de la catégorie : {{ category.Name}} {% endif %}"
-                        />
+                        <a href="{{ asset('images/category/') ~ category.imageName}}" data-lightbox data-image-alt="{% if category.imageDescription is not null %} {{ category.imageDescription }}{% else %} Image de la catégorie : {{ category.Name}} {% endif %}">
+                            <img 
+                                class="bd-placeholder-img rounded-circle"
+                                src="{{ asset('images/category/') ~ category.imageName}}" 
+                                alt="{% if category.imageDescription is not null %} {{ category.imageDescription }}
+                                {% else %} Image de la catégorie : {{ category.Name}} {% endif %}"
+                            />
+                        </a>
                     {% endif %}
                     <h3 class="fw-normal">{{ category.Name}}</h3>
                     <p class="fs-6">{{ category.description}}</p>
@@ -56,11 +60,15 @@
                     <div>{{ article.description|raw }}</div>
                 </div>
                 <div class="col-md-5">
-                    <img src="{{ asset('images/articleBlog/' ~ article.imageName) }}" alt="{{ article.imageDescription}}" class="img-fluid mx-auto">
+                    <a href="{{ asset('images/articleBlog/' ~ article.imageName)}}" data-lightbox data-image-alt="{% if article.imageDescription is not null %} {{ article.imageDescription }}{% else %} Image de la catégorie : {{ article.Name}} {% endif %}">
+                        <img src="{{ asset('images/articleBlog/' ~ article.imageName) }}" alt="{{ article.imageDescription}}" class="img-fluid mx-auto">
+                    </a>
                 </div>
             {% else %}
                 <div class="col-md-5">
-                    <img src="{{ asset('images/articleBlog/' ~ article.imageName) }}" alt="{{ article.imageDescription}}" class="img-fluid mx-auto">
+                    <a href="{{ asset('images/articleBlog/' ~ article.imageName)}}" data-lightbox data-image-alt="{% if article.imageDescription is not null %} {{ article.imageDescription }}{% else %} Image de la catégorie : {{ article.Name}} {% endif %}">
+                        <img src="{{ asset('images/articleBlog/' ~ article.imageName) }}" alt="{{ article.imageDescription}}" class="img-fluid mx-auto">
+                    </a>
                 </div>
 
                 <div class="featurette-heading col-md-7">

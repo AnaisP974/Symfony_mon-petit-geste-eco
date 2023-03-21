@@ -1,31 +1,28 @@
 {{ form_start(form) }}
     <div class="row justify-content-between align-items-center">
-        <div class="col-4">
+        <div class="col-12 col-md-4">
             {{ form_row(form.imageFile) }}
-        </div>
-        <div class="col-4">
-            {# je laisse la condition car l'image n'éxiste pas lors de la création d'une nv catégorie #}
-            {% if category.imageName is not null %}
-               <img 
-                src="{{ asset('images/category/' ~ category.imageName) }}" 
-                alt="{% if category.imageDescription is not null %} {{ category.imageDescription }}
-                    {% else %} Image illustrant la catégorie : {{ category.Name}} {% endif %}"
-                /> 
-            {% endif %}
-        </div>
-    </div>
-
-    <div class="row justify-content-between">
-        <div class="col-6 col-md-3">
             {{ form_row(form.name) }}
         </div>
-        <div class="col-6 col-md-3">
-            {{ form_row(form.tag) }}
+        <div class="col-12 col-md-6 col-lg-3">
+            {# je laisse la condition car l'image n'éxiste pas lors de la création d'une nv catégorie #}
+            {% if category.imageName is not null %}
+               <a href="{{ asset('images/category/') ~ category.imageName}}" data-lightbox data-image-alt="{% if category.imageDescription is not null %} {{ category.imageDescription }}{% else %} Image de la catégorie : {{ category.Name}} {% endif %}">
+                    <img 
+                        class="img-dashboard-upload"
+                        src="{{ asset('images/category/' ~ category.imageName) }}" 
+                        alt="{% if category.imageDescription is not null %} {{ category.imageDescription }}
+                            {% else %} Image illustrant la catégorie : {{ category.Name}} {% endif %}"
+                    /> 
+                </a>
+            {% endif %}
         </div>
-        <div class="col-6 col-md-4">
+        <div class="col-12 col-lg-5">
             {{ form_row(form.imageDescription) }}
         </div>
     </div>
+
+
     <div class="row">
         <div class="col-12">
             {{ form_row(form.description) }}

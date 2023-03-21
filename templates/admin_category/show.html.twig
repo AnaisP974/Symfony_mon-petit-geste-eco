@@ -16,39 +16,29 @@
         {{ include('admin_category/_delete_form.html.twig') }}
     </div>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ category.id }}</td>
-            </tr>
-            <tr>
-                <th>Name</th>
-                <td>{{ category.name }}</td>
-            </tr>
-            <tr>
-                <th>ImageName</th>
-                <td>{{ category.imageName }}</td>
-            </tr>
-            <tr>
-                <th>UpdatedAt</th>
-                <td>{{ category.updatedAt ? category.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-            <tr>
-                <th>Description</th>
-                <td>{{ category.description }}</td>
-            </tr>
-            <tr>
-                <th>ImageDescription</th>
-                <td>{{ category.imageDescription }}</td>
-            </tr>
-            <tr>
-                <th>Tag</th>
-                <td>{{ category.tag }}</td>
-            </tr>
-        </tbody>
-    </table>
-    
+    <div class="card mb-3" style="max-width: auto;">
+        <div class="row g-0 align-items-center p-2">
+            <div class="col-md-4 ">
+                <a href="{{ asset('images/category/') ~ category.imageName}}" data-lightbox data-image-alt="{% if category.imageDescription is not null %} {{ category.imageDescription }}{% else %} Image de la catégorie : {{ category.Name}} {% endif %}">
+                    <img 
+                        src="{{ asset('images/category/' ~ category.imageName) }}" 
+                        alt="{% if category.imageDescription is not null %} {{ category.imageDescription }}
+                            {% else %} Image illustrant la catégorie : {{ category.Name}} {% endif %}"
+                    /> 
+                </a>
+            </div>
+            <div class="col-md-8">
+                <div class="card-body">          
+                    <p class="card-text">ID : {{ category.id }}</p>          
+                    <h5 class="card-title">Nom : {{ category.name }}</h5>                    
+                    <p class="card-text">Description : {{ category.description|raw }}</p>
+                    <p class="card-text"><small class="text-muted">Mise à jour le : {{ category.updatedAt ? category.updatedAt|date('Y-m-d H:i:s') : '' }}</small></p>
+                    <p class="card-text">Description de l'image : {{ category.imageDescription|raw }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
         <a href="{{ path('app_admin_category_edit', {'id': category.id}) }}" class="btn btn-success" title="Modifier">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil me-1" viewBox="0 0 16 16">
                 <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"/>

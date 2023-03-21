@@ -26,7 +26,7 @@ class Category
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $imageName = null;
 
 // LINK THE UPLOAD MAPPING TO THE ENTITY  
@@ -43,11 +43,10 @@ class Category
     #[ORM\OneToMany(mappedBy: 'category', targetEntity: Product::class, orphanRemoval: true)]
     private Collection $products;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(type: Types::TEXT)]
     private ?string $imageDescription = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $tag = null;
+    
 
     public function __construct()
     {
@@ -176,15 +175,5 @@ class Category
         return $this;
     }
 
-    public function getTag(): ?string
-    {
-        return $this->tag;
-    }
 
-    public function setTag(string $tag): self
-    {
-        $this->tag = $tag;
-
-        return $this;
-    }
 }
