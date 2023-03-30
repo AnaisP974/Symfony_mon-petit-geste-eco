@@ -1,0 +1,43 @@
+{{ form_start(form) }}
+<div class="row justify-content-between align-items-center">
+        <div class="col-12 col-md-4">
+            {{ form_row(form.isPromote) }}
+            {{ form_row(form.name) }}
+            {{ form_row(form.slug) }}
+            {{ form_row(form.stock) }}
+            {{ form_row(form.price) }}
+        </div>
+        <div class="col-12 col-md-6 col-lg-3">
+        {# je laisse la condition car l'image n'éxiste pas lors de la création d'une nv catégorie #}
+            {% if product.imageName is not null %}
+               <a href="{{ asset('images/product/') ~ product.imageName}}" data-lightbox data-image-alt="{% if product.descriptionImage is not null %} {{ product.descriptionImage }}{% else %} Image de la catégorie : {{ product.Name}} {% endif %}">
+                    <img 
+                        class="img-dashboard-upload"
+                        src="{{ asset('images/product/' ~ product.imageName) }}" 
+                        alt="{% if product.descriptionImage is not null %} {{ product.descriptionImage }}
+                            {% else %} Image illustrant la catégorie : {{ product.name}} {% endif %}"
+                    /> 
+                </a>
+            {% endif %}
+            {{ form_row(form.imageFile) }}
+            {{ form_row(form.category) }}
+        </div>
+        <div class="col-12 col-lg-5">
+            {{ form_row(form.descriptionImage) }}
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-12">
+            {{ form_row(form.description) }}
+        </div>
+
+    </div>
+    {{include("common/_required_message.html.twig")}}
+
+    <button class="btn  btn-success my-3" title="{{ button_label|default('Enregistrer') }}">
+        {{ button_label|default('Enregistrer') }}
+    </button>
+    
+{{ form_end(form) }}

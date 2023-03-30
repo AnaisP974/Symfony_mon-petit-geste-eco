@@ -1,0 +1,61 @@
+{% extends 'base-backend.html.twig' %}
+
+{% block title %}Produit : {{ product.name }}{% endblock %}
+
+{% block body %}
+    <a href="{{ path('app_admin_product_index') }}"class="btn btn-secondary mt-4 mb-2 align-items-center" title="Retour">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left me-1" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
+        </svg>Retour
+    </a>
+
+    <div class="d-flex flex-wrap justify-content-between align-items-center  mb-4">
+        <h1>Produit : {{ product.name }}</h1>
+        {{ include('admin_product/_delete_form.html.twig') }}
+    </div>
+
+    <div class="card mb-3" style="max-width: auto;">
+        <div class="row g-0 align-items-center p-2">
+            <div class="col-md-4 ">
+                <a href="{{ asset('images/product/') ~ product.imageName}}" data-lightbox data-image-alt="{% if product.descriptionImage is not null %} {{ product.descriptionImage }}{% else %} Image de la catégorie : {{ product.Name}} {% endif %}">
+                    <img 
+                        class="img-dashboard-upload"
+                        style="width: 100%;"
+                        src="{{ asset('images/product/' ~ product.imageName) }}" 
+                        alt="{% if product.descriptionImage is not null %} {{ product.descriptionImage }}{% endif %}"
+                    /> 
+                </a>
+            </div>
+            <div class="col-md-8">
+                <div class="card-body">
+                    <p class="card-text">ID : {{ product.id }}</p>          
+                    <h5 class="card-title">Nom : {{ product.name }}</h5>                    
+                    <p class="card-text">Description : {{ product.description|raw }}</p>
+                    <p class="card-text"><small class="text-muted">Mise à jour le : {{ product.updatedAt ? product.updatedAt|date('Y-m-d H:i:s') : '' }}</small></p>
+                    <p class="card-text justi">Description courte :<br/> <em>{{ product.descriptionImage|raw }}</em></p>
+                    <div class="d-flex justify-content-between">
+                        <p>{{ product.price|format_currency('EUR', locale="fr") }}</p>
+                        <p>Stock : {{ product.stock }} restant(s)</p>
+                        <div>
+                        {% if product.isPromote %}
+                        Mis en avant :
+                            <img src="{{ asset('images/icons/check2.svg')}}" class="color-success" alt="Oui">
+                        {% else %}
+                        Mis en avant :
+                            <img src="{{ asset('images/icons/x-lg.svg')}}" class="color-danger" alt="Non">
+                        {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+    <a href="{{ path('app_admin_product_edit', {'id':  product.id}) }}" class="btn btn-success" title="Modifier">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil me-1" viewBox="0 0 16 16">
+            <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"/>
+        </svg>
+    </a>
+
+{% endblock %}

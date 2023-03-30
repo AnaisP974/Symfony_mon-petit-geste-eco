@@ -52,14 +52,6 @@ class ArticleBlogFixtures extends Fixture
         $articleBlog->setImageDescription("Composteur en bois, contenant des déchets organiques. On voit clairement les différentes couches de déchets.");
         $manager->persist($articleBlog);
         
-        $articleBlog = new ArticleBlog();
-        $articleBlog->setIsActive(false);
-        $articleBlog->setTitle("Limiter les déchets plastiques");
-        $articleBlog->setDescription("<p>Malgré leur interdiction, vous trouverez encore des sacs plastiques chez certains commerçants. Ne plus les utiliser évitera que vos sacs plastiques s'envolent et se retrouvent ensuite dans les océans ou qu'ils se décomposent dans l'environnement.</p> 
-        <p>Au restaurant ou chez les commerçants, il vaut mieux apporter vos propres contenants. SI vous achetez des aliments ou des boissons à emporter, demandez aux commerçants de ne pas les emballer dans du plastique.</p>
-        <p>Les produits bio sont moins chers en vrac, et cela vous permet de choisir la quantité dont vous avez besoin. Pensez-bien à apporter vos propres sacs à vrac, autrement le gain écologique sera limité.</p>");
-        $articleBlog->setSignature("L'équipe de Mon Petit Geste Eco.");
-        $manager->persist($articleBlog);
         $manager->flush();
     }
 }

@@ -4,6 +4,26 @@ body{
             margin-left: 3%;
             margin-right: 3%;
         }
-
+        a{
+            color:black !important;
+            text-decoration: none;            
+        }
+        .home-card-product{
+            &:hover{
+                background-color: rgb(229, 248, 216);
+                font-size: 1.1rem;
+                font-weight: 600;
+                margin: 0.5%;
+            }
+        }
+        .shop-card-product{
+            &:hover{
+                background-color: rgb(218, 219, 218);
+                
+            }
+        }
+        .min-desc-product{
+            font-size: 0.8rem;
+        }
     }
 }

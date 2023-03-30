@@ -30,7 +30,7 @@
                                 <a class="nav-link {% if current_menu is defined and current_menu == 'home' %} active {% endif %}" aria-current="page" href="{{ path('app_front_home')}}">Accueil</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#">Boutique</a>
+                                <a class="nav-link {% if current_menu is defined and current_menu == 'shop' %} active {% endif %}" href="{{ path('app_front_shop')}}">Boutique</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link">Blog</a>
@@ -52,7 +52,7 @@
         <footer class="d-flex flex-wrap justify-content-around bg-success pt-2">
             <p class="fs-6 text-white">
                 &copy; 2023 Company, Inc. &middot; 
-                <a href="#" class="navbar-brand mx-3">Administrateur</a> &middot; 
+                
                 <a class="navbar-brand mx-3" href="#">Conditions Générales de Ventes</a> &middot; 
                 <a class="navbar-brand mx-2" href="#">Mentions Légales</a> &middot; 
                 <a class="navbar-brand mx-3" href="#">Nous contacter</a> &middot; 

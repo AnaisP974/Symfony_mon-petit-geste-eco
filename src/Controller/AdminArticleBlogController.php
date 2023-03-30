@@ -25,7 +25,7 @@ class AdminArticleBlogController extends AbstractController
     public function new(Request $request, ArticleBlogRepository $articleBlogRepository): Response
     {
         $articleBlog = new ArticleBlog();
-        $form = $this->createForm(ArticleBlogType::class, $articleBlog);
+        $form = $this->createForm(ArticleBlogType::class, $articleBlog, ["new"=>true]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

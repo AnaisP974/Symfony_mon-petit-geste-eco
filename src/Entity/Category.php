@@ -46,12 +46,30 @@ class Category
     #[ORM\Column(type: Types::TEXT)]
     private ?string $imageDescription = null;
 
+    #[ORM\Column(length: 255)]
+    private ?string $slug = null;
+
     
+
+    // -------------------------------
+    //          MAGIC FUNCTION
+    // -------------------------------
 
     public function __construct()
     {
         $this->products = new ArrayCollection();
     }
+   
+
+    public function __toString(): string
+    {
+        return $this->name;
+    }
+
+
+    //--------------------------------------
+    //              GETTER SETTER
+    //--------------------------------------
 
     public function getId(): ?int
     {
@@ -175,5 +193,17 @@ class Category
         return $this;
     }
 
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
 
+    public function setSlug(string $slug): self
+    {
+        $this->slug = $slug;
+
+        return $this;
+    }
+
+   
 }
