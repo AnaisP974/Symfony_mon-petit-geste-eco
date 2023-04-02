@@ -36,6 +36,7 @@
                     <div class="d-flex justify-content-between">
                         <p>{{ product.price|format_currency('EUR', locale="fr") }}</p>
                         <p>Stock : {{ product.stock }} restant(s)</p>
+                        <p>Catégorie : {{ product.category }}</p>
                         <div>
                         {% if product.isPromote %}
                         Mis en avant :

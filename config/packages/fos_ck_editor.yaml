@@ -1,4 +1,7 @@
 fos_ck_editor:
+
+    input_sync: true
+
     configs:
         my_config:
             toolbar: basic

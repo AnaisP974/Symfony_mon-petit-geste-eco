@@ -9,6 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\String\Slugger\SluggerInterface;
 
 #[Route('/admin/product')]
 class AdminProductController extends AbstractController
@@ -22,18 +23,27 @@ class AdminProductController extends AbstractController
     }
 
     #[Route('/new', name: 'app_admin_product_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, ProductRepository $productRepository): Response
+    public function new(Request $request, ProductRepository $productRepository, SluggerInterface $sluggerInterface): Response
     {
         $product = new Product();
         $form = $this->createForm(ProductType::class, $product, ["new" => true]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+         
+            $postDatas = $form->all();
+            if (count($postDatas["newCategory"]->getData()) > 0 ){
+                $category = $postDatas["newCategory"]->getData()[0];
+                $category->setSlug($sluggerInterface->slug(strtolower($category->getName())));
+                $product->setCategory($category);
+            }
+            // dd($category);
+            $product->setSlug($sluggerInterface->slug(strtolower($product->getName())));
             $productRepository->save($product, true);
 
+            $this->addFlash("success", "Le nouveau produit a bien été créé !");
             return $this->redirectToRoute('app_admin_product_index', [], Response::HTTP_SEE_OTHER);
         }
-
         return $this->renderForm('admin_product/new.html.twig', [
             'product' => $product,
             'form' => $form,
@@ -49,16 +59,27 @@ class AdminProductController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'app_admin_product_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Product $product, ProductRepository $productRepository): Response
+    public function edit(Request $request, Product $product, ProductRepository $productRepository, SluggerInterface $sluggerInterface): Response
     {
         $form = $this->createForm(ProductType::class, $product);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            //vérifie si newcat existante
+            $postDatas = $form->all();
+            if (count($postDatas["newCategory"]->getData()) > 0 ){
+                $category = $postDatas["newCategory"]->getData()[0];
+                $category->setSlug($sluggerInterface->slug(strtolower($category->getName())));
+                $product->setCategory($category);
+            }
+            // dd($category);
+            $product->setSlug($sluggerInterface->slug(strtolower($product->getName())));
             $productRepository->save($product, true);
 
+            $this->addFlash("success", "Le nouveau produit a bien été modifié !");
             return $this->redirectToRoute('app_admin_product_index', [], Response::HTTP_SEE_OTHER);
         }
+
 
         return $this->renderForm('admin_product/edit.html.twig', [
             'product' => $product,
@@ -71,8 +92,11 @@ class AdminProductController extends AbstractController
     {
         if ($this->isCsrfTokenValid('delete'.$product->getId(), $request->request->get('_token'))) {
             $productRepository->remove($product, true);
+            $this->addFlash("warning", "Le produit a bien été supprimé !");
         }
+        
 
         return $this->redirectToRoute('app_admin_product_index', [], Response::HTTP_SEE_OTHER);
     }
+
 }

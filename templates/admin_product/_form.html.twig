@@ -1,9 +1,38 @@
+{% macro renderCategoryForm(form) %}
+<h6 class="mb-3">Nouvelle catégorie :</h6>
+    <div class="row justify-content-around align-items-center">
+        <div class="col-12 col-md-4">
+            {{ form_row(form.name) }}
+        </div>
+        <div class="col-12 col-lg-4">
+            {{ form_row(form.imageFile) }}
+        </div>    
+    </div>
+    <div class="row justify-content-between align-items-center">
+
+        <div class="col-12 col-md-4">
+            {{ form_label(form.description) }}
+        </div>
+        <div class="col-12 col-lg-6">
+            {{ form_label(form.imageDescription) }}
+        </div>
+        <div class="col-12 col-md-6">
+            {{ form_widget(form.description) }}
+        </div>
+        <div class="col-12 col-lg-6">
+            {{ form_widget(form.imageDescription) }}
+        </div>
+    </div>
+    
+{% endmacro %}
+
+{% import _self as customMacro %}
+
 {{ form_start(form) }}
 <div class="row justify-content-between align-items-center">
         <div class="col-12 col-md-4">
             {{ form_row(form.isPromote) }}
             {{ form_row(form.name) }}
-            {{ form_row(form.slug) }}
             {{ form_row(form.stock) }}
             {{ form_row(form.price) }}
         </div>
@@ -20,15 +49,29 @@
                 </a>
             {% endif %}
             {{ form_row(form.imageFile) }}
-            {{ form_row(form.category) }}
         </div>
+        
         <div class="col-12 col-lg-5">
             {{ form_row(form.descriptionImage) }}
         </div>
     </div>
 
-
     <div class="row">
+        <div class="d-flex align-items-end">
+            <div class="col-5">
+                {{ form_row(form.category) }}
+            </div>
+            <div class="col-2 ms-5">
+                {{ form_row(form.addCategory) }}
+            </div>
+        </div>
+        <div class="col-12">
+            <ul class="addcategory list-unstyled bg-light mb-3"
+            data-index="{{ form.newCategory|length > 0 ? form.newCategory|last.vars.name + 1 : 0 }}"
+            data-prototype="{{ customMacro.renderCategoryForm(form.newCategory.vars.prototype)|e('html_attr') }}"
+            >
+            </ul>
+        </div>
         <div class="col-12">
             {{ form_row(form.description) }}
         </div>

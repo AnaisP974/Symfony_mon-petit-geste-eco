@@ -5,10 +5,11 @@ namespace App\Controller;
 use App\Entity\Category;
 use App\Form\CategoryType;
 use App\Repository\CategoryRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\String\Slugger\SluggerInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 #[Route('/admin/category')]
 class AdminCategoryController extends AbstractController
@@ -22,13 +23,14 @@ class AdminCategoryController extends AbstractController
     }
 
     #[Route('/new', name: 'app_admin_category_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, CategoryRepository $categoryRepository): Response
+    public function new(Request $request, CategoryRepository $categoryRepository, SluggerInterface $sluggerInterface): Response
     {
         $category = new Category();
         $form = $this->createForm(CategoryType::class, $category, ["new"=>true]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $category->setSlug($sluggerInterface->slug(strtolower($category->getName())));
             $categoryRepository->save($category, true);
             // affichage du message Flash
             $this->addFlash("success", "La nouvelle catégorie a bien été créée !");
@@ -51,12 +53,13 @@ class AdminCategoryController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'app_admin_category_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Category $category, CategoryRepository $categoryRepository): Response
+    public function edit(Request $request, Category $category, CategoryRepository $categoryRepository, SluggerInterface $sluggerInterface): Response
     {
         $form = $this->createForm(CategoryType::class, $category);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $category->setSlug($sluggerInterface->slug(strtolower($category->getName())));
             $categoryRepository->save($category, true);
             // affichage du message Flash
             $this->addFlash("success", "La catégorie a bien été modifiée !");

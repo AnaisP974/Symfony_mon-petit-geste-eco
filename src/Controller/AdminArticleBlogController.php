@@ -31,8 +31,10 @@ class AdminArticleBlogController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $articleBlogRepository->save($articleBlog, true);
 
+            $this->addFlash("success", "Le nouvel article a bien été créé !");
             return $this->redirectToRoute('app_admin_article_blog_index', [], Response::HTTP_SEE_OTHER);
         }
+
 
         return $this->renderForm('admin_article_blog/new.html.twig', [
             'article_blog' => $articleBlog,
@@ -56,7 +58,8 @@ class AdminArticleBlogController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $articleBlogRepository->save($articleBlog, true);
-
+            
+            $this->addFlash("success", "L'article a bien été modifié !");
             return $this->redirectToRoute('app_admin_article_blog_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -71,6 +74,7 @@ class AdminArticleBlogController extends AbstractController
     {
         if ($this->isCsrfTokenValid('delete'.$articleBlog->getId(), $request->request->get('_token'))) {
             $articleBlogRepository->remove($articleBlog, true);
+            $this->addFlash("warning", "L'article a bien été supprimé !");
         }
 
         return $this->redirectToRoute('app_admin_article_blog_index', [], Response::HTTP_SEE_OTHER);

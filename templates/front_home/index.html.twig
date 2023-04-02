@@ -20,7 +20,7 @@
       
         
             {% for category in categories %}
-                <div class="col-lg-3 text-center d-flex flex-wrap ">
+                <div class="col-lg-3 text-center d-flex flex-wrap align-items">
                     <div>
                     {% if category.imageName is not null %}
                         <a href="{{ asset('images/category/') ~ category.imageName}}" data-lightbox data-image-alt="{% if category.imageDescription is not null %} {{ category.imageDescription }}{% else %} Image de la catégorie : {{ category.Name}} {% endif %}">
@@ -33,10 +33,10 @@
                         </a>
                     {% endif %}
                     <h3 class="fw-normal">{{ category.name}}</h3>
-                    <p class="fs-6">{{ category.description}}</p>
-                    </div>
+                    <p class="fs-6">{{ category.description|raw}}</p>
                     
-                    <a class="btn btn-success align-self-end mx-auto text-white" href="{{ path('app_front_filteredProducts', {slug: category.slug})}}" >Voir produits &raquo;</a>
+                    </div>
+                    <a class="btn btn-success align-self-end mx-5 text-white" href="{{ path('app_front_filteredProducts', {slug: category.slug})}}" >Voir produits &raquo;</a>
                 </div>
             {% endfor %}
 
