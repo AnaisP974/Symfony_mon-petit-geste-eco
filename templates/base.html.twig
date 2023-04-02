@@ -17,14 +17,18 @@
 
     <body>
         <header>
+        {% if app.user is not null %}
+            <nav class="navbar navbar-expand-md navbar-dark" style="background-color: #1A3287;">
+        {% else %}
             <nav class="navbar navbar-expand-md navbar-dark bg-success">
+        {% endif %}
                 <div class="container-fluid d-flex ">
                     <a class="navbar-brand" href="{{ path('app_front_home')}}">Mon Petit Geste Eco</a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
                     <div class="collapse navbar-collapse ms-5" id="navbarCollapse">
-                        <ul class="navbar-nav me-auto mb-2 mb-md-0">
+                        <ul class="navbar-nav me-5 mb-2 mb-md-0 w-100">
                             <li class="nav-item">
                                 {# mise en place d'une condition pour ajout de la classe "active" lorsqu'il est nécessaire permettra de mettre en gras le texte de la navbar indiquant la page consulté #}
                                 <a class="nav-link {% if current_menu is defined and current_menu == 'home' %} active {% endif %}" aria-current="page" href="{{ path('app_front_home')}}">Accueil</a>
@@ -38,18 +42,59 @@
                             <li class="nav-item">
                                 <a class="nav-link">Contact</a>
                             </li>
+                            
+                            <li class="nav-item ms-md-auto dropdown">
+                            
+                                {% if app.user is not null %}
+                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Mon compte
+                                </a>
+                                <ul class="dropdown-menu" style="background-color: #A9B9F0;">
+                                    <li><a class="dropdown-item" href="#">Profile</a></li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li><a class="dropdown-item" href="{{ path('app_logout')}}">Déconnexion</a></li>
+                                </ul>
+                                {% else %}
+                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Connexion
+                                </a>
+                                <ul class="dropdown-menu" style="background-color: #B3DBC8;">
+                                    <li><a class="dropdown-item" href="{{ path('app_login')}}">Se connecter</a></li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li><a class="dropdown-item" href="#">Créer un compte</a></li>
+                                </ul>  
+                                {% endif %}
+                            </li>
+
+                            <span class="navbar-text ms-md-5 text-white">
+                                Statut : 
+                                {% if app.user is not null %}
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-person-check-fill" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd" d="M15.854 5.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 0 1 .708-.708L12.5 7.793l2.646-2.647a.5.5 0 0 1 .708 0z"/>
+                                <path d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+                                </svg>
+                                {% else %}
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-person-x-fill" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd" d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm6.146-2.854a.5.5 0 0 1 .708 0L14 6.293l1.146-1.147a.5.5 0 0 1 .708.708L14.707 7l1.147 1.146a.5.5 0 0 1-.708.708L14 7.707l-1.146 1.147a.5.5 0 0 1-.708-.708L13.293 7l-1.147-1.146a.5.5 0 0 1 0-.708z"/>
+                                </svg>
+                                {% endif %}
+                            </span>
                         </ul>
                     </div>
                 </div>
             </nav>
         </header>
 
+   
         <main>
             {% block body %}{% endblock %}
         </main>
 
-
+        {% if app.user is not null %}
+        <footer class="d-flex flex-wrap justify-content-around pt-2" style="background-color: #1A3287;">
+        {% else %}
         <footer class="d-flex flex-wrap justify-content-around bg-success pt-2">
+        {% endif %}
             <p class="fs-6 text-white">
                 &copy; 2023 Company, Inc. &middot; 
                 

@@ -36,7 +36,12 @@
                     <p class="fs-6">{{ category.description|raw}}</p>
                     
                     </div>
+                    {% if app.user is not null %}
+                    <a class="btn align-self-end mx-5 text-white"  style="background-color: #1A3287;" href="{{ path('app_front_filteredProducts', {slug: category.slug})}}" >Voir produits &raquo;</a>
+                    {% else %}
+                    
                     <a class="btn btn-success align-self-end mx-5 text-white" href="{{ path('app_front_filteredProducts', {slug: category.slug})}}" >Voir produits &raquo;</a>
+                    {% endif %}
                 </div>
             {% endfor %}
 

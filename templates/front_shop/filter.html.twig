@@ -14,8 +14,13 @@
         </div>
         <div class="container-fluid d-flex flex-wrap justify-content-between">
             <h6 class="ms-2">Filtrer par catégorie :</h6>
+            {% if app.user is not null %}
+            {# Affichage du bouton pour voir tous les produits #}
+            <a href="{{ path('app_front_shop') }}" class="btn text-white" style="background-color: #1A3287;">Afficher tous les produits</a>
+            {% else %}            
             {# Affichage du bouton pour voir tous les produits #}
             <a href="{{ path('app_front_shop') }}" class="btn btn-success text-white">Afficher tous les produits</a>
+            {% endif %}
         </div>
                 {# Affichage des catégories #}
         <div class="container d-flex flex-wrap justify-content-between">

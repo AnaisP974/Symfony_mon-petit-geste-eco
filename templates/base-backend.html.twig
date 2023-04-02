@@ -18,16 +18,32 @@
 
     <body>
 
-        <header class="navbar navbar-dark sticky-top bg-top-sidebar flex-md-nowrap p-0">
-            <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3 fs-6 ms-5 ms-md-0" href="{{ path('app_front_home')}}">Mon Petit Geste Eco</a>
-            <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="d-flex justify-content-end">
-                
-                <div class="navbar-nav">
-                    <div class="nav-item text-nowrap">
-                    <a class="nav-link px-3" href="#">Déconnexion</a>
+        <header>
+           
+            <div class="navbar navbar-dark sticky-top bg-success flex-md-nowrap p-0">  
+                <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3 fs-6 ms-5 ms-md-0" href="{{ path('app_front_home')}}">Mon Petit Geste Eco</a>
+                <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="d-flex justify-content-end align-items-center">
+                    <div class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Mon compte
+                        </a>
+                        <ul class="dropdown-menu" style="background-color: #B3DBC8;">
+                            <li><a class="dropdown-item" href="#">Profile</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="{{ path('app_logout')}}">Deconnexion</a></li>
+                        </ul>
+                    </div>
+                    <div class="navbar-text mx-5 text-white">
+                        <span>
+                                    Statut : 
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-person-check-fill" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd" d="M15.854 5.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 0 1 .708-.708L12.5 7.793l2.646-2.647a.5.5 0 0 1 .708 0z"/>
+                                    <path d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+                                    </svg>
+                        </span>
                     </div>
                 </div>
             </div>
