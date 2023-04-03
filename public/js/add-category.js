@@ -7,16 +7,24 @@ const addFormToCollection = (e) => {
   
     //Ajout d'une class au <li>
     item.classList.add("p-3", "mb-3");
-  
-    item.innerHTML = collectionHolder
-      .dataset
-      .prototype
-      .replace(
-        /__name__/g,
-        collectionHolder.dataset.index
-      );
-  
-    collectionHolder.appendChild(item);
+ // On récupère le prototype
+var newWidget = $(collectionHolder).attr('data-prototype');
+// On remplace le __name__ du prototype par l'index du collectionHolder
+newWidget = newWidget.replace(/__name__/g, collectionHolder.dataset.index);
+// On ajoute le widget à la li
+//L'appel en JQuery enclenche le CKEditor
+var newElem = $(item).html(newWidget);
+
+    // item.innerHTML = collectionHolder
+    //   .dataset
+    //   .prototype
+    //   .replace(
+    //     /__name__/g,
+    //     collectionHolder.dataset.index
+    //   );
+
+    newElem.appendTo(collectionHolder);
+    // collectionHolder.appendChild(item);
     addDelete();
     // item.querySelector('textarea').replace().CKEditor();
     collectionHolder.dataset.index++;
