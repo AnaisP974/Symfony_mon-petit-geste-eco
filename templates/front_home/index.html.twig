@@ -3,12 +3,21 @@
 {% block title %}Mon Petit Geste Eco - Accueil{% endblock %}
 
 {% block body %}
-    <div class="row">
-       
-            <img src="{{ asset('images/home2.jpg')}}" alt="Image d'accueil de décoration">
-       
+<div class="row">   
+    <img src="{{ asset('images/home2.jpg')}}" alt="Image d'accueil de décoration">     
+</div>
+<div class="row justify-content-center">
+    <div class="col-6 p-3">
+        {% for label, messages in app.flashes %}
+            {% for message in messages %}
+                <div class="alert alert-{{ label }} alert-dismissible fade show text-center" role="alert">
+                    {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            {% endfor %}
+        {% endfor %}
     </div>
-
+</div>
     <div class="container">
 
         <div class=" row featurette my-5 d-flex flex-wrap justify-content-around">

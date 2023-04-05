@@ -93,6 +93,26 @@
                 </div>
                 
                 <div class="tab-pane fade" id="donnees-perso-tab-pane" role="tabpanel" aria-labelledby="donnees-perso-tab" tabindex="0">
+                    {% macro renderAddressForm(form) %}
+                    <h6 class="mb-3">Adresse :</h6>
+                        <div class="row justify-content-around align-items-center">
+                            <div class="col-10">
+                                {{ form_row(form.titleAddress) }}
+                                {{ form_row(form.additionalAddress) }}
+                            </div>
+                            <div class="col-4">
+                                {{ form_row(form.postalCode) }}
+                                {{ form_row(form.country) }}
+                            </div>
+                            <div class="col-6">
+                                {{ form_row(form.city) }}
+                                {{ form_row(form.typeAddress) }}
+                            </div>    
+                        </div>
+                
+                    {% endmacro %}
+
+                    {% import _self as customMacro %}
                     {{ form_start(form)}}
                         <div class="row justify-content-center">
                             <div class="col-10">
@@ -109,6 +129,16 @@
                             </div>
                             <div class="col-11 col-md-5">
                                 {{ form_row(form.phoneNumber)}}
+                            </div>
+                            <div class="col-10">
+                            {{ form_row(form.addAddress) }}
+                            </div>
+                            <div class="col-10">
+                                <ul class="addaddress list-unstyled bg-light mb-3"
+                                data-index="{{ form.newAddress|length > 0 ? form.newAddress|last.vars.name + 1 : 0 }}"
+                                data-prototype="{{ customMacro.renderAddressForm(form.newAddress.vars.prototype)|e('html_attr') }}"
+                                >
+                                </ul>
                             </div>
                             <div class="col-10">
                                 {{ form_row(form.plainPassword)}}

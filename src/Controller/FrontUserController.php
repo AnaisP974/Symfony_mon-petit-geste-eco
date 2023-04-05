@@ -28,6 +28,12 @@ class FrontUserController extends AbstractController
         $form->handleRequest($request);
         // ON vérifie si le formulaire est soumis et valide
         if($form->isSubmitted() && $form->isValid()){
+            
+            $postDatas = $form->all();
+            if (count($postDatas["newAddress"]->getData()) > 0 ){
+                $address = $postDatas["newAddress"]->getData()[0];                
+                $user->addAddress($address);
+            }
             // On vérifie s'il y a un nouveau mot de passe si la propriété plainPassword n'est pas vide, car si c'est le cas il faudra hasher le nv mot de passe
             if(!is_null($user->getPlainPassword())){
                 // On hash le mot de passe
