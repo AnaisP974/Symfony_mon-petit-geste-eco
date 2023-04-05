@@ -48,18 +48,22 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     private $plainPassword;
 
-    #[ORM\ManyToMany(targetEntity: Address::class, mappedBy: 'user', cascade: ['persist'])]
-    private Collection $addresses;
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $address = null;
 
-    public function __construct()
-    {
-        $this->addresses = new ArrayCollection();
-    }
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $additionalAddress = null;
 
-    public function __toString(): string
-    {
-        return $this->email;
-    }
+    #[ORM\Column(length: 5, nullable: true)]
+    private ?string $postalCode = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $city = null;
+
+    #[ORM\Column(length: 3, nullable: true)]
+    private ?string $country = null;
+
+
 
     // GETTERS/SETTERS
 
@@ -232,29 +236,63 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    /**
-     * @return Collection<int, Address>
-     */
-    public function getAddresses(): Collection
+
+    public function getAddress(): ?string
     {
-        return $this->addresses;
+        return $this->address;
     }
 
-    public function addAddress(Address $address): self
+    public function setAddress(?string $address): self
     {
-        if (!$this->addresses->contains($address)) {
-            $this->addresses->add($address);
-            $address->addUser($this);
-        }
+        $this->address = $address;
 
         return $this;
     }
 
-    public function removeAddress(Address $address): self
+    public function getAdditionalAddress(): ?string
     {
-        if ($this->addresses->removeElement($address)) {
-            $address->removeUser($this);
-        }
+        return $this->additionalAddress;
+    }
+
+    public function setAdditionalAddress(?string $additionalAddress): self
+    {
+        $this->additionalAddress = $additionalAddress;
+
+        return $this;
+    }
+
+    public function getPostalCode(): ?string
+    {
+        return $this->postalCode;
+    }
+
+    public function setPostalCode(?string $postalCode): self
+    {
+        $this->postalCode = $postalCode;
+
+        return $this;
+    }
+
+    public function getCity(): ?string
+    {
+        return $this->city;
+    }
+
+    public function setCity(?string $city): self
+    {
+        $this->city = $city;
+
+        return $this;
+    }
+
+    public function getCountry(): ?string
+    {
+        return $this->country;
+    }
+
+    public function setCountry(?string $country): self
+    {
+        $this->country = $country;
 
         return $this;
     }

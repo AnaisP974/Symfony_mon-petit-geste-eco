@@ -42,7 +42,14 @@
                             <li class="nav-item">
                                 <a class="nav-link">Contact</a>
                             </li>
-                            
+                            {% if app.user is not null %}
+                                {% if app.user.roles == ['ROLE_USER', 'ROLE_ADMIN'] %}
+                                <li class="nav-item ms-3">
+                                    <a class="nav-link" href="{{ path('app_admin')}}">Tableau de bord</a>
+                                </li>
+                                {% endif %}
+                            {% endif %}
+
                             <li class="nav-item ms-md-auto dropdown">
                             
                                 {% if app.user is not null %}
@@ -114,8 +121,7 @@
         {# Popper et JavaScript de Bootstrap v5.3 #}
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js" integrity="sha384-mQ93GR66B00ZXjt0YO5KlohRA5SY2XofN4zfuZxLkoj1gXtW8ANNCe9d5Y3eG5eD" crossorigin="anonymous"></script>
-        {# JS du formulaire inclus dynamique #}
-        <script src="{{ asset('js/add-address.js')}}"></script>
+       
         {% block javascripts %}{% endblock %}
     </body>
 </html>
