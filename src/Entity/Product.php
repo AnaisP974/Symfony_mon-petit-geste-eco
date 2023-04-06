@@ -31,7 +31,7 @@ class Product
     #[ORM\Column]
     private ?float $price = null;
 
-    #[ORM\Column]
+    #[ORM\Column(nullable: true)]
     private ?bool $isPromote = null;
 
     #[ORM\Column(length: 255)]

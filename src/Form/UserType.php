@@ -9,6 +9,7 @@ use Symfony\Component\Validator\Constraints\Regex;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\TelType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\CountryType;
@@ -20,12 +21,36 @@ class UserType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('email', EmailType::class, ["required"=>true])
+            ->add('email', EmailType::class, [
+                "required"=>true,
+                'constraints' => [
+                    new Regex([
+                        'pattern' => "/[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$/i",
+                        'message' => 'Merci de saisir un email valide.'
+                    ])
+                ],                
+            ])
             ->remove('roles')
             ->remove('password')
             ->add('firstname', TextType::class, ["required"=>false, "label"=> "Prénom"])
             ->add('lastname', TextType::class, ["required"=>false, "label"=> "Nom"])
-            ->add('phoneNumber', TextType::class, ["required"=>false, "label"=> "Numéro de téléphone"])
+            ->add('phoneNumber', TelType::class, [
+                "required"=>false, 
+                "label"=> "Numéro de téléphone",
+                'constraints' => [
+                    new Length([
+                        'min' => 10,
+                        'minMessage' => 'Le numéro de téléphone doit avoir un minimum de 10 caractères',
+                        // max length allowed by Symfony for security reasons
+                        'max' => 5,
+                    ]),
+                    new Regex([
+                        'pattern' => "/\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}/",
+                        'message' => 'Numéro de téléphone invalide.'
+                    ])
+                ],
+            ])
+            
             ->remove('isVerified')
             ->remove('secretIv')
             ->add('plainPassword', RepeatedType::class, [

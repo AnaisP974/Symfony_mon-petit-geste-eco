@@ -45,13 +45,13 @@
         <div class="row ">
        
         {% for product in selectedCategory.products %}
-        <div class="col-3 my-5 d-flex flex-wrap justify-content-around align-items-stretch">
+        <div class="col-6 col-md-4 col-lg-2 my-5 d-flex flex-wrap justify-content-around align-items-stretch">
 
-            <div class="card shop-card-product p-3" style="width: 15rem;">
+            <div class="card shop-card-product p-3">
                 <a href="{{ path('app_front_product', {slug: product.slug})}}">
                     <img src="{{ asset('images/product/') ~ product.imageName}}" class="card-img-top" alt="{{ product.descriptionImage }}">
                 </a>   
-                    <div class="card-body p-0 mt-1 d-flex flex-wrap" style="heigth: 100vh;" >                            
+                    <div class="card-body p-0 mt-1 d-flex flex-wrap">                            
                         <div>
                         <a href="{{ path('app_front_product', {slug: product.slug})}}">
                         <h6 class="card-title w-100">{{ product.name }}</h6>

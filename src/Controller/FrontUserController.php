@@ -46,6 +46,10 @@ class FrontUserController extends AbstractController
             // on redirige l'utilisateur vers la page de profil
             return $this->redirectToRoute('app_front_user');
         }
+        if($form->isSubmitted() && !$form->isValid()){
+
+            $this->addFlash('danger', 'Votre profil n\'a pas été modifié car l\'un des champs de saisie est invalide.');
+        }
         return $this->render('front_user/index.html.twig', [
             'current_menu' => 'profil',
             'form' => $form->createView(),

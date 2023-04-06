@@ -25,11 +25,11 @@
             <h2 class="mb-2 text-center">Catégories :</h2>
             <hr class="featurette-divider mb-5">
         </div>
-        <div class=" row featurette my-5 d-flex flex-wrap justify-content-around align-items-stretch">
+        <div class=" row my-3 d-flex flex-wrap justify-content-around align-items-stretch">
       
         
             {% for category in categories %}
-                <div class="col-lg-3 text-center d-flex flex-wrap align-items">
+                <div class="col-12 col-md-6 col-lg-3 text-center d-flex flex-wrap align-items my-3">
                     <div>
                     {% if category.imageName is not null %}
                         <a href="{{ asset('images/category/') ~ category.imageName}}" data-lightbox data-image-alt="{% if category.imageDescription is not null %} {{ category.imageDescription }}{% else %} Image de la catégorie : {{ category.Name}} {% endif %}">
@@ -42,7 +42,7 @@
                         </a>
                     {% endif %}
                     <h3 class="fw-normal">{{ category.name}}</h3>
-                    <p class="fs-6">{{ category.description|raw}}</p>
+                    <p class="fs-6 text-start text-md-center mx-3">{{ category.description|raw}}</p>
                     
                     </div>
                     {% if app.user is not null %}

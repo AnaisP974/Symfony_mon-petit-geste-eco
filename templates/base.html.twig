@@ -40,7 +40,7 @@
                                 <a class="nav-link">Blog</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link">Contact</a>
+                                <a class="nav-link {% if current_menu is defined and current_menu == 'contact' %} active {% endif %}" href="{{ path('app_front_contact')}}">Contact</a>
                             </li>
                             {% if app.user is not null %}
                                 {% if app.user.roles == ['ROLE_USER', 'ROLE_ADMIN'] %}
@@ -53,7 +53,8 @@
                             <li class="nav-item ms-md-auto dropdown">
                             
                                 {% if app.user is not null %}
-                                <a class="nav-link dropdown-toggle {% if current_menu is defined and current_menu == 'profil' %} active {% endif %}" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <a class="nav-link dropdown-toggle {% if current_menu is defined and current_menu == 'profil' %} active {% endif %}" 
+                                href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     Mon compte
                                 </a>
                                 <ul class="dropdown-menu" style="background-color: #A9B9F0;">
@@ -107,7 +108,7 @@
                 
                 <a class="navbar-brand mx-3" href="#">Conditions Générales de Ventes</a> &middot; 
                 <a class="navbar-brand mx-2" href="#">Mentions Légales</a> &middot; 
-                <a class="navbar-brand mx-3" href="#">Nous contacter</a> &middot; 
+                <a class="navbar-brand mx-3" href="{{ path('app_front_contact')}}">Nous contacter</a> &middot; 
                 <a href="{{ path('app_front_home')}}" class="navbar-brand mx-3">Revenir en haut de page</a>
             </p>
             
