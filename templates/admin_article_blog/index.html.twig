@@ -19,7 +19,7 @@
                     <th>Image</th>
                     <th>Actif</th>
                     <th>Titre</th>
-                    <th>Sous-titre</th>
+                    {# <th>Sous-titre</th> #}
                     {# <th>Description</th> #}
                     <th>Mise à jour le</th>
                     <th>Signature</th>
@@ -53,7 +53,7 @@
                     {% endif %}
                     </td>
                     <td>{{ article_blog.title }}</td>
-                    <td>{{ article_blog.subtitle }}</td>
+                    {# <td>{{ article_blog.subtitle }}</td> #}
                     {# <td>{{ article_blog.description }}</td> #}
                     <td>{{ article_blog.updatedAt ? article_blog.updatedAt|date('d-m-Y H:i:s') : '' }}</td>
                     <td>{{ article_blog.signature }}</td>

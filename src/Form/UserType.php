@@ -41,8 +41,8 @@ class UserType extends AbstractType
                     new Length([
                         'min' => 10,
                         'minMessage' => 'Le numéro de téléphone doit avoir un minimum de 10 caractères',
-                        // max length allowed by Symfony for security reasons
-                        'max' => 5,
+                        // max mis en commentaire pour l'encodage des données
+                        // 'max' => 15,
                     ]),
                     new Regex([
                         'pattern' => "/\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}/",

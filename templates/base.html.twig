@@ -17,11 +17,12 @@
 
     <body>
         <header>
-        {% if app.user is not null %}
-            <nav class="navbar navbar-expand-md navbar-dark" style="background-color: #1A3287;">
-        {% else %}
-            <nav class="navbar navbar-expand-md navbar-dark bg-success">
-        {% endif %}
+            <nav 
+              class="navbar navbar-expand-md navbar-dark 
+              {% if app.user is not null %}bg-dark-blue
+              {% else %}bg-success{% endif %}">
+        
+            
                 <div class="container-fluid d-flex ">
                     <a class="navbar-brand" href="{{ path('app_front_home')}}">Mon Petit Geste Eco</a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
@@ -92,17 +93,16 @@
                 </div>
             </nav>
         </header>
-
    
         <main>
             {% block body %}{% endblock %}
         </main>
-
-        {% if app.user is not null %}
-        <footer class="d-flex flex-wrap justify-content-around pt-2" style="background-color: #1A3287;">
-        {% else %}
-        <footer class="d-flex flex-wrap justify-content-around bg-success pt-2">
-        {% endif %}
+        
+        <footer 
+            class="d-flex flex-wrap justify-content-around pt-2 
+            {% if app.user is not null %}bg-dark-blue
+            {% else %}bg-success{% endif %}">
+        
             <p class="fs-6 text-white">
                 &copy; 2023 Company, Inc. &middot; 
                 

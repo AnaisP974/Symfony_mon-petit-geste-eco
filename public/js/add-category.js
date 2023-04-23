@@ -45,14 +45,14 @@ var newElem = $(item).html(newWidget);
       });
   }
   
-  //Add
+  //Add (ajout)
   document
     .querySelectorAll('.add_item_link')
     .forEach(btn => {
         btn.addEventListener("click", addFormToCollection)
     });
   
-  //Remove
+  //Remove (suppression)
   function addDelete(){
     document
         .querySelectorAll('ul.addcategory li')

@@ -4,7 +4,8 @@ namespace App\Controller;
 
 use App\Entity\Contact;
 use App\Form\ContactType;
-use App\Repository\ContactRepository;
+
+use DateTimeImmutable;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -16,14 +17,14 @@ class FrontContactController extends AbstractController
     #[Route('/contact', name: 'app_front_contact')]
     public function index(Request $request, EntityManagerInterface $entityManagerInterface): Response
     {
-        $contact = new contact();
+        $contact = new Contact();
         $form = $this->createForm(ContactType::class, $contact);
         
         $form->handleRequest($request);
 // exemple
         // ON vérifie si le formulaire est soumis et valide
         if($form->isSubmitted() && $form->isValid()){
-            
+            $contact->setDate(new DateTimeImmutable());
             // On mémorise le contact en demandant à $entityManagerInterface de faire un persist
             $entityManagerInterface->persist($contact);
             // On enregistre en bdd

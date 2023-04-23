@@ -125,7 +125,7 @@ class Category
     {
         return $this->imageFile;
     }
-    //---------------------------------------------
+//---------------------------------------------
 
     public function getUpdatedAt(): ?\DateTimeImmutable
     {
