@@ -1,12 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Mon Compte{% endblock %}
-{% block javascripts %}
-<script>
-    let isMobile = (document.documentElement.scrollWidth < 768 px);
-</script>
 
-{% endblock %}
 {% block body %}
 <div class="container-fluid">
     <div class="px-md-4 text-center">
@@ -86,6 +81,38 @@
                     <div class="row justify-content-center">
                         <div class="col-10">
                             <h4  class="my-4">Mes favoris :</h4>
+                            <div class="table-responsive">
+                                <table class="table table-striped table-sm mb-5">
+                                <thead>
+                                    <tr>                                    
+                                    <th scope="col">Image</th>
+                                    <th scope="col">Intitulé</th>
+                                    <th scope="col">Prix</th>
+                                    <th scope="col"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                            {% for product in app.user.favoris %}
+                                    <tr>                            
+                                    <td>
+                                        <a href="{{ path('app_front_product', {slug: product.slug})}}">
+                                        <img src="{{ asset('/images/product/') ~ product.imageName}}" class="img-favoris-size" alt="{{ product.descriptionImage}}">
+                                        </a>
+                                    </td>
+                                    <td>{{ product.name}}</td>
+                                    <td>{{ product.price|format_currency('EUR', locale="fr") }}</td>
+                                    <td>
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="bi bi-heart-fill favoris text-danger" data-id="{{ product.id }}" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                                        <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
+                                    </svg>
+                                    </tr>
+                            {% else %}
+                            <p class="mb-5 text-danger"><strong>Vous n'avez pas de produit à la liste de favoris</strong></p>
+                            
+                            {% endfor %}
+                                </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -151,3 +178,22 @@
 
 {% endblock %}
 
+{% block javascripts %}
+<script>
+$(".favoris").on("click", function(event){
+    let productId = $(this).attr("data-id");
+    let heart = $(this);
+    
+    $.ajax({
+        url: "{{ path('app_front_add_favoris')}}",
+        type: 'POST',
+        data: "id="+productId+"&action=unlike",
+    }).done(function(response){
+        if(response.success){
+            $(heart).off("click");
+            $(heart).closest("tr").remove();
+        };       
+    });
+});
+</script>
+{% endblock %}

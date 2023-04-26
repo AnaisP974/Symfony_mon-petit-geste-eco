@@ -63,6 +63,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 3, nullable: true)]
     private ?string $country = null;
 
+    #[ORM\ManyToMany(targetEntity: Product::class, inversedBy: 'users')]
+    private Collection $favoris;
+
+    public function __construct()
+    {
+        $this->favoris = new ArrayCollection();
+    }
+
 
 
     // GETTERS/SETTERS
@@ -293,6 +301,30 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setCountry(?string $country): self
     {
         $this->country = $country;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Product>
+     */
+    public function getFavoris(): Collection
+    {
+        return $this->favoris;
+    }
+
+    public function addFavoris(Product $favoris): self
+    {
+        if (!$this->favoris->contains($favoris)) {
+            $this->favoris->add($favoris);
+        }
+
+        return $this;
+    }
+
+    public function removeFavoris(Product $favoris): self
+    {
+        $this->favoris->removeElement($favoris);
 
         return $this;
     }

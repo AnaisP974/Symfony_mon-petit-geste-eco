@@ -4,11 +4,13 @@ namespace App\Controller;
 
 
 use App\Form\UserType;
+use App\Repository\ProductRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 
@@ -57,4 +59,19 @@ class FrontUserController extends AbstractController
             
         ]);
     }
+// Déclarer une route utilisée par une requête ajax en POST
+    #[Route('/add-favoris', name: 'app_front_add_favoris', methods: ['POST'])]
+    public function addFavoris(Request $request, ProductRepository $productRepository, EntityManagerInterface $entityManagerInterface): JsonResponse
+    {
+        $action = $request->request->get('action');
+        $id = $request->request->get('id');
+        $user = $this->getUser();
+        $product = $productRepository->find($id);
+        $user->addFavoris($product);
+        ($action === "like") ? $user->addFavoris($product) : $user->removeFavoris($product);
+        $entityManagerInterface->persist($user);
+        $entityManagerInterface->flush();
+        return new JsonResponse(['success' => true]);
+    }
+
 }
