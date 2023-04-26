@@ -67,9 +67,6 @@ class UserType extends AbstractType
                 "required"=>false, 
                 "label"=>"Code postal",
                 'constraints' => [
-                    new NotBlank([
-                        'message' => 'la saisie d\'un code postal est obligatoire',
-                    ]),
                     new Length([
                         'min' => 2,
                         'minMessage' => 'Un code postal valide est obligatoire',

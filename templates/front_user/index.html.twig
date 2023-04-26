@@ -118,8 +118,31 @@
                 </div>
                 
                 <div class="tab-pane fade" id="donnees-perso-tab-pane" role="tabpanel" aria-labelledby="donnees-perso-tab" tabindex="0">
+                   
+                    <div class="row justify-content-center">
+                        <hr class="mt-5">
+                        <div class="col-12 d-flex justify-content-between">
+                            <h4  class="my-3">Mes données personnelles :</h4>
+                            <button type="submit" class="btn btn-primary modify">Modifier mes données</button>
+                        </div>
+                        <hr class="mt-3">
+                        <div class="col-12 col-md-8 p-4">
+                            <h6><strong>Coordonnées :</strong></h6>
+                            <p>Votre Prénom et NOM : {{ user.firstname }} {{ user.lastname }}</p>
+                            <p>Votre email : {{ user.email }}</p>
+                            <p>Votre n° de téléphone : {{ user.phoneNumber }}</p>
+                            <p>Adresse : 
+                            {% if user.address %} {{ user.address }} {% endif %} 
+                            {% if user.additionalAddress %} ; {{ user.additionalAddress }} {% endif %}
+                            {% if user.postalCode %} au {{ user.postalCode }} {% endif %} 
+                            {% if user.city %} à {{ user.city }} {% endif %}
+                            {% if user.country %} (en {{ user.country }}) {% endif %} </p>
+                        </div>
+                    </div>
+                    
+
                    {{ form_start(form)}}
-                        <div class="row justify-content-center">
+                        <div class="row justify-content-center d-none">
                             <hr class="mt-5">
 
                             <div class="col-10">
@@ -195,5 +218,10 @@ $(".favoris").on("click", function(event){
         };       
     });
 });
+
+$(".modify").on("click", function(event){
+    $(".d-none").removeClass("d-none").addClass("d-flex");
+});
+
 </script>
 {% endblock %}

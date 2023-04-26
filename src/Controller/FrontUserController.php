@@ -5,6 +5,7 @@ namespace App\Controller;
 
 use App\Form\UserType;
 use App\Repository\ProductRepository;
+use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -55,7 +56,7 @@ class FrontUserController extends AbstractController
         return $this->render('front_user/index.html.twig', [
             'current_menu' => 'profil',
             'form' => $form->createView(),
-            
+            'user' => $user,
             
         ]);
     }

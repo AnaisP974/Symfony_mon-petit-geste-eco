@@ -2,21 +2,30 @@
 
 namespace App\Controller;
 
-use App\Repository\CategoryRepository;
 use App\Repository\ProductRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Repository\CategoryRepository;
+use Knp\Component\Pager\PaginatorInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+
 
 class FrontShopController extends AbstractController
 {
     #[Route('/boutique', name: 'app_front_shop')]
-    public function index(CategoryRepository $categoryRepository, ProductRepository $productRepository): Response
+    public function index(CategoryRepository $categoryRepository, Request $request, ProductRepository $productRepository, PaginatorInterface $paginator ): Response
     {
+        $products = $productRepository->findAll();
+        $pagination = $paginator->paginate(
+            $products, /* query NOT result */
+            $request->query->getInt('page', 1), /*page number*/
+            12 /*limit per page*/
+        );
         return $this->render('front_shop/index.html.twig', [
             // création d'une variable pour dynamiser la navbar
             'current_menu' => 'shop',
-            'products' => $productRepository->findAll(),
+            'products' => $pagination,
             'categories' => $categoryRepository->findAll(),
         ]);
     }

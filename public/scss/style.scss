@@ -3,8 +3,27 @@ body{
         background-color: #1A3287;
     }
     main{
+        * {
+            font-family: 'Urbanist', sans-serif;
+            
+        }
         min-height: 80vh;
-
+        h2 {
+            font-family: 'Rampart One', cursive; 
+            font-weight: 600;
+            font-size: 3rem;
+            
+        }
+        .fw-normal {
+            font-family: 'Cardo', serif;
+            font-size: 1.8rem;
+        }
+        h3 {
+            font-family: 'Rajdhani', sans-serif;
+        }
+        h6{
+            font-family: 'Varela Round', sans-serif;
+        }
         .container{
             margin-left: 3%;
             margin-right: 3%;
