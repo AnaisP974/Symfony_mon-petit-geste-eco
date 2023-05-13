@@ -44,6 +44,27 @@
                             <li class="nav-item">
                                 <a class="nav-link {% if current_menu is defined and current_menu == 'contact' %} active {% endif %}" href="{{ path('app_front_contact')}}">Contact</a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link {% if current_menu is defined and current_menu == 'panier' %} active {% endif %}" href="{{ path('app_cart')}}">
+                                Mon Panier 
+                                <span>(
+                                {% if app.session.get('cart') %}
+                                    {{ app.session.get('cartData').data.quantityCart }} 
+                                {% else %}
+                                    0
+                                {% endif %})</span>                        
+                                </a>
+                                {# <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Mon Panier
+                                </a>
+                                <ul class="dropdown-menu">
+                    
+                                    <li><a class="dropdown-item"  href="#">Action</a></li>
+                                    <li><a class="dropdown-item" href="#">Another action</a></li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li><a class="dropdown-item" href="#">Something else here</a></li>
+                                </ul> #}
+                            </li>
                             {% if app.user is not null %}
                                 {% if app.user.roles == ['ROLE_USER', 'ROLE_ADMIN'] %}
                                 <li class="nav-item ms-3">

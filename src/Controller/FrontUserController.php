@@ -3,15 +3,17 @@
 namespace App\Controller;
 
 
+use App\Entity\Cart;
 use App\Form\UserType;
+use App\Repository\CartRepository;
+
 use App\Repository\ProductRepository;
-use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 
@@ -68,11 +70,13 @@ class FrontUserController extends AbstractController
         $id = $request->request->get('id');
         $user = $this->getUser();
         $product = $productRepository->find($id);
-        $user->addFavoris($product);
+        // $user->addFavoris($product);
         ($action === "like") ? $user->addFavoris($product) : $user->removeFavoris($product);
         $entityManagerInterface->persist($user);
         $entityManagerInterface->flush();
         return new JsonResponse(['success' => true]);
     }
+   
+    
 
 }

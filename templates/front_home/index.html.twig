@@ -94,15 +94,15 @@
                                     <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
                                 </svg>  
                                 {% endif %}
-                             <button type="button" class="btn btn-light">
-                                <img src="{{ asset('images/icons/basket-fill.svg')}}" alt="ajouter au panier">
-                            </button>
-                            
-                            {# <button type="button" class="btn btn-light">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-basket-fill text-success" viewBox="0 0 16 16">
+                            {# début Icone PANIER #}
+                                                       
+                            <a href="{{ path('app_addCart', {'id':product.id})}}" class="btn btn-light">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-basket-fill" viewBox="0 0 16 16">
                                     <path d="M5.071 1.243a.5.5 0 0 1 .858.514L3.383 6h9.234L10.07 1.757a.5.5 0 1 1 .858-.514L13.783 6H15.5a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.5.5H15v5a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V9H.5a.5.5 0 0 1-.5-.5v-2A.5.5 0 0 1 .5 6h1.717L5.07 1.243zM3.5 10.5a.5.5 0 1 0-1 0v3a.5.5 0 0 0 1 0v-3zm2.5 0a.5.5 0 1 0-1 0v3a.5.5 0 0 0 1 0v-3zm2.5 0a.5.5 0 1 0-1 0v3a.5.5 0 0 0 1 0v-3zm2.5 0a.5.5 0 1 0-1 0v3a.5.5 0 0 0 1 0v-3zm2.5 0a.5.5 0 1 0-1 0v3a.5.5 0 0 0 1 0v-3z"/>
                                 </svg>
-                            </button> #}
+                            </a>
+                           
+                            {# fin Icone PANIER #}
                                 
                             </p> 
                                                  
@@ -179,5 +179,21 @@ $(".favoris").on("click", function(event){
         }       
     })
 });
+
+{# $(".panier").on("click", function(event){
+    let productId = $(this).attr("data-id");
+    let panier = $(this);
+    let action = "add";
+    if($(this).hasClass("text-success")) action = "remove";
+    $.ajax({
+        url: "{{ path('app_front_add_panier')}}",
+        type: 'POST',
+        data: "id="+productId+"&action="+action
+    }).done(function(response){
+        if(response.success){
+            ($(panier).hasClass("text-success")) ? $(panier).removeClass("text-success") : $(panier).addClass("text-success")
+        }       
+    })
+}); #}
 </script>
 {% endblock %}
