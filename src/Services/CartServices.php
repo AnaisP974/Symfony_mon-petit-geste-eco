@@ -1,7 +1,6 @@
 <?php
 namespace App\Services;
 
-
 use App\Entity\Cart;
 use App\Repository\ProductRepository;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
@@ -109,8 +108,9 @@ class CartServices
     }
 
     /**
-     * Fonction qui crée un objet tableau dans lequel sont disponible les données du produit, la quantité, la taxe, les montants HT et TTC. 
-     *
+     * Fonction qui crée un objet tableau dans lequel sont 
+     * disponible les données du produit, la quantité, 
+     * la taxe, les montants HT et TTC. 
      * @return array
      */
     public function getFullCart()

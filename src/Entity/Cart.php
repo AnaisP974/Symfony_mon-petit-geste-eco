@@ -19,10 +19,10 @@ class Cart
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\OneToOne(inversedBy: 'cart', cascade: ['persist', 'remove'])]
+    #[ORM\OneToOne(inversedBy: 'cart')]
     private ?User $user = null;
 
-    #[ORM\ManyToMany(targetEntity: Product::class, inversedBy: 'carts', cascade: ['persist'])]
+    #[ORM\ManyToMany(targetEntity: Product::class)]
     private Collection $product;
 
     public function __construct()

@@ -68,7 +68,7 @@
                     <tr>
                         <td></td>                                                                    
                         <td colspan="3">Frais de port</td>                                        
-                        <td colspan="2">{% if cart.data.subTotalTTC < 70 %} 5.90€ {% else %} OFFERT {% endif %} </td>
+                        <td colspan="2">{% if cart.data.subTotalTTC < 75.9 %} 5.90€ {% else %} OFFERT {% endif %} </td>
                     </tr>
                     <tr class="fs-3">
                         <td></td>                                                                                
@@ -82,28 +82,4 @@
         <button class="btn btn-success" type="submit">Valider la commande</button>
     </div>
 </div>
-{% endblock %}
-{% block javascripts %}
-<script>
-{# QUANTITE DE PRODUIT ET SON TOTAL #}
-$(".more").on("click", function(event){
-    $(this).closest("td").find('input').val( function(i, oldval) {
-    return ++oldval;
-    });
-    let quantity = $(this).closest("td").find('input').val();
-    let price = $(this).closest("td").find('p').html();
-    let total = (quantity*price).toFixed(2);
-    $(this).closest("tr").children('#total').html(`<p>${(total)} €</p>`);
-});
-$(".less").on("click", function(event){
-    $(this).closest("td").find('input').val( function(i, oldval) {
-    return (--oldval>0) ? oldval-- : 0 ;
-    });
-    let quantity = $(this).closest("td").find('input').val();
-    let price = $(this).closest("td").find('p').html();
-    let total = (quantity*price).toFixed(2);
-    $(this).closest("tr").children('#total').html(`<p>${(total)} €</p>`);
-});
-
-</script>
 {% endblock %}

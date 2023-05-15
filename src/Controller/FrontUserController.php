@@ -5,8 +5,9 @@ namespace App\Controller;
 
 use App\Entity\Cart;
 use App\Form\UserType;
-use App\Repository\CartRepository;
+use App\Services\CartServices;
 
+use App\Repository\CartRepository;
 use App\Repository\ProductRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -20,10 +21,15 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class FrontUserController extends AbstractController
 {
+    private $cartServices;
+   public function __construct(CartServices $cartServices)
+   {
+        $this->cartServices = $cartServices;
+   }
     #[Route('/profil', name: 'app_front_user')]
     public function index(Request $request, UserPasswordHasherInterface $userPasswordHasherInterface, EntityManagerInterface $entityManagerInterface): Response
     {
-        
+        $cart = $this->cartServices->getFullCart();
         //Récupérer l'utilisateur
         $user = $this->getUser();
         //Créer un formulaire
@@ -59,7 +65,7 @@ class FrontUserController extends AbstractController
             'current_menu' => 'profil',
             'form' => $form->createView(),
             'user' => $user,
-            
+            'cart' => $cart,
         ]);
     }
 // Déclarer une route utilisée par une requête ajax en POST
