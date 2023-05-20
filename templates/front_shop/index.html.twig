@@ -43,33 +43,23 @@
                     </a>   
                     <div class="card-body p-0 mt-1 d-flex flex-wrap">                            
                         <div>
-                        <a href="{{ path('app_front_product', {slug: product.slug})}}">
-                        <h6 class="card-title w-100">{{ product.name }}</h6>
-                        <div class="min-desc-product w-100">{{ product.descriptionImage|raw }}</div>
-                        </a>
+                            <a href="{{ path('app_front_product', {slug: product.slug})}}">
+                            <h6 class="card-title w-100">{{ product.name }}</h6>
+                            <div class="min-desc-product w-100">{{ product.descriptionImage|raw }}</div>
+                            </a>
                         </div>
                         <p class="card-text d-flex w-100 justify-content-between align-items-center align-self-end my-2">
                     
                             {{ product.price|format_currency('EUR', locale="fr") }}
                            
                             {% if app.user is not null %}
-                                <svg xmlns="http://www.w3.org/2000/svg" data-id="{{ product.id }}" class="bi bi-heart-fill favoris {% if product in app.user.favoris %}text-danger{% endif %}" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
-                                    <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
-                                </svg>
+                            <i data-id="{{ product.id }}" class="bi bi-heart-fill favoris {% if product in app.user.favoris %}text-danger{% endif %}"></i>
                             {% endif %}
-                                {# début Icone PANIER #}
-                                                          
-                                <a href="{{ path('app_addCart', {'id':product.id})}}" class="btn btn-light">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-basket-fill" viewBox="0 0 16 16">
-                                        <path d="M5.071 1.243a.5.5 0 0 1 .858.514L3.383 6h9.234L10.07 1.757a.5.5 0 1 1 .858-.514L13.783 6H15.5a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.5.5H15v5a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V9H.5a.5.5 0 0 1-.5-.5v-2A.5.5 0 0 1 .5 6h1.717L5.07 1.243zM3.5 10.5a.5.5 0 1 0-1 0v3a.5.5 0 0 0 1 0v-3zm2.5 0a.5.5 0 1 0-1 0v3a.5.5 0 0 0 1 0v-3zm2.5 0a.5.5 0 1 0-1 0v3a.5.5 0 0 0 1 0v-3zm2.5 0a.5.5 0 1 0-1 0v3a.5.5 0 0 0 1 0v-3zm2.5 0a.5.5 0 1 0-1 0v3a.5.5 0 0 0 1 0v-3z"/>
-                                    </svg>
-                                </a>
                             
-                                {# fin Icone PANIER #}
+                            {# début Icone PANIER #}                        
+                            <a href="{{ path('app_addCart', {'id':product.id})}}" class="btn btn-light"><i class="bi bi-basket-fill"></i></a>
+                            {# fin Icone PANIER #}
                             
-                           
-                            
-                        
                         </p>                                                    
                     </div>                    
                 </div>
