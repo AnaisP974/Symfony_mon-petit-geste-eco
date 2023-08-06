@@ -8,9 +8,9 @@
                 {# En-tête & titre principal  #}
         <div class="px-md-4 text-center">
             <img src="{{ asset('/images/home_shop.png')}}" alt="image de décoration" style="width: 70%;">            
-            <hr class="mt-3">
+            
             <h2 class="mb-2">Nos Produits :</h2>
-            <hr class="mb-3">
+
         </div>
                 {# Affichage des catégories #}
         <h6 class="ms-2">Filtrer par catégorie :</h6>
@@ -37,7 +37,7 @@
             {% for product in products %}
             <div class="col-6 col-md-4 col-lg-2 my-5 d-flex flex-wrap justify-content-around align-items-stretch">
 
-                <div class="card shop-card-product p-3">
+                <div class="card p-3">
                     <a href="{{ path('app_front_product', {slug: product.slug})}}">
                         <img src="{{ asset('images/product/') ~ product.imageName}}" class="card-img-top" alt="{{ product.descriptionImage }}">
                     </a>   
@@ -56,8 +56,8 @@
                             <i data-id="{{ product.id }}" class="bi bi-heart-fill favoris {% if product in app.user.favoris %}text-danger{% endif %}"></i>
                             {% endif %}
                             
-                            {# début Icone PANIER #}                        
-                            <a href="{{ path('app_addCart', {'id':product.id})}}" class="btn btn-light"><i class="bi bi-basket-fill"></i></a>
+                            {# début Icone PANIER #}                                                       
+                            <a href="{{ path('app_addCart', {'id':product.id})}}" class="btn {% if app.session.get('cart') %}{% for element in cart.products %}{% if element.product.id == product.id %} btn-success text-white{% endif %}{% endfor %}{% else %}btn-light{% endif %}"><i class="bi bi-basket-fill"></i></a>                           
                             {# fin Icone PANIER #}
                             
                         </p>                                                    

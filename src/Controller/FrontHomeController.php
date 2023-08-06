@@ -2,15 +2,22 @@
 
 namespace App\Controller;
 
-use App\Repository\ArticleBlogRepository;
-use App\Repository\CategoryRepository;
+use App\Services\CartServices;
 use App\Repository\ProductRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Repository\CategoryRepository;
+use App\Repository\ArticleBlogRepository;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class FrontHomeController extends AbstractController
 {
+    private $cartServices;
+    public function __construct(CartServices $cartServices)
+    {
+        $this->cartServices = $cartServices;
+    }
+     
     #[Route('/', name: 'app_front_home')]
     public function index(ArticleBlogRepository $articleBlogRepository, CategoryRepository $categoryRepository, ProductRepository $productRepository): Response
     {
@@ -22,6 +29,7 @@ class FrontHomeController extends AbstractController
             'current_menu' => 'home',
             'categories' => $categoryRepository->findAll(),
             'products' => $productRepository->findAll(),
+            'cart' => $this->cartServices->getFullCart(),
         ]);
     }
 }

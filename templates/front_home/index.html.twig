@@ -4,125 +4,100 @@
 
 {% block body %}
 
-<div class="row">   
-    <img src="{{ asset('images/home2.jpg')}}" alt="Image d'accueil de décoration">     
-</div>
+<img src="{{ asset('images/home2.jpg')}}" alt="banière de la page d'accueil" class="w-100">     
+
 <div class="container justify-content-center">
-<div class="row justify-content-center">
-    <div class="col-6 p-3">
-        {% for label, messages in app.flashes %}
-            {% for message in messages %}
-                <div class="alert alert-{{ label }} alert-dismissible fade show text-center" role="alert">
-                    {{ message }}
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
-            {% endfor %}
-        {% endfor %}
-    </div>
-</div>
-    <div class="container">
-
-        <div class=" row featurette my-5 d-flex flex-wrap justify-content-around">
-            <hr class="featurette-divider">
-            <h2 class="mb-2 text-center">Catégories :</h2>
-            <hr class="featurette-divider mb-5">
-        </div>
-        <div class=" row my-3 d-flex flex-wrap justify-content-around align-items-stretch">
-      
-        
-            {% for category in categories %}
-                <div class="col-12 col-md-6 col-lg-3 text-center d-flex flex-wrap align-items my-3">
-                    <div>
-                    {% if category.imageName is not null %}
-                        <a  href="{{ path('app_front_filteredProducts', {slug: category.slug})}}">
-                            <img 
-                                class="bd-placeholder-img rounded-circle"
-                                src="{{ asset('images/category/') ~ category.imageName}}" 
-                                alt="{% if category.imageDescription is not null %} {{ category.imageDescription }}
-                                {% else %} Image de la catégorie : {{ category.Name}} {% endif %}"
-                            />
-                            <h3>{{ category.name}}</h3>
-                        </a>
-                    {% endif %}
-                    
-                    {# <p class="fs-6 text-start text-md-center mx-3">{{ category.description|raw}}</p> #}
-                    
+    
+    {# début message flash #}
+    <section class="row justify-content-center margin_section">
+        <div class="col-6 p-3">
+            {% for label, messages in app.flashes %}
+                {% for message in messages %}
+                    <div class="alert alert-{{ label }} alert-dismissible fade show text-center" role="alert">
+                        {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
-                    {# 
-                    {% if app.user is not null %}
-                    <a class="btn align-self-end mx-5 text-white"  style="background-color: #1A3287;" href="{{ path('app_front_filteredProducts', {slug: category.slug})}}" >Voir produits &raquo;</a>
-                    {% else %}
-                    
-                    <a class="btn btn-success align-self-end mx-5 text-white" href="{{ path('app_front_filteredProducts', {slug: category.slug})}}" >Voir produits &raquo;</a>
-                    {% endif %} 
-                    #}
-                </div>
+                {% endfor %}
             {% endfor %}
-
         </div>
-    </div>
-
-    <div class="container">
-
-        <div class=" row featurette my-5 d-flex flex-wrap justify-content-around">
-            <hr class="featurette-divider">
-            <h2 class="mb-2 text-center">Nouveautés :</h2>
-            <hr class="featurette-divider mb-5">
+    </section>
+    {# fin message flash #}
+    
+    {# début Catégorie #}
+    <section class="container margin_section">
+        <h2 class="mb-2 text-center">Catégories :</h2>
+       
+        <div class="row my-3 d-flex flex-wrap justify-content-around align-items-stretch">
+            {% for category in categories %}
+            <div class="col-12 col-md-6 col-lg-3 text-center d-flex flex-wrap align-items my-3">
+                <div>
+                    {% if category.imageName is not null %}
+                    <a  href="{{ path('app_front_filteredProducts', {slug: category.slug})}}">
+                        <img 
+                            class="rounded-circle"
+                            src="{{ asset('images/category/') ~ category.imageName}}" 
+                            alt="{% if category.imageDescription is not null %} {{ category.imageDescription }}
+                            {% else %} Image de la catégorie : {{ category.Name}} {% endif %}"
+                        />
+                        <h3>{{ category.name}}</h3>
+                    </a>
+                    {% endif %}
+                </div>
+            </div>
+            {% endfor %}
         </div>
-        <div class=" row featurette my-5 d-flex flex-wrap justify-content-around align-items-stretch">
-      
-        
+    </section>
+    {# fin Catégorie #}
+
+    {# début product #}
+    <section class="container margin_section">
+        <h2 class="mb-2 text-center">Nouveautés :</h2>
+        <div class=" row my-5 d-flex flex-wrap justify-content-around align-items-stretch">      
             {% for product in products %}
                 {% if product.isPromote == true %}
-                    
-                    <div class="card home-card-product" style="width: 11rem;">
-                        <a href="{{ path('app_front_product', {slug: product.slug})}}">
+                <div class="card product_card">
+                    <a href="{{ path('app_front_product', {slug: product.slug})}}">
                         <img src="{{ asset('images/product/') ~ product.imageName}}" class="card-img-top" alt="{{ product.descriptionImage }}">
-                        </a>   
-                        <div class="card-body p-0 mt-1 d-flex flex-wrap" style="heigth: 100vh;" >                            
-                            <div>
-                                <a href="{{ path('app_front_product', {slug: product.slug})}}">
-                                <h6 class="card-title w-100">{{ product.name }}</h6>
-                                <div class="min-desc-product w-100">{{ product.descriptionImage|raw }}</div>
-                                </a>
-                            </div>
-                            <p class="card-text d-flex w-100 justify-content-between align-items-center align-self-end my-2">
-                       
-                                {{ product.price|format_currency('EUR', locale="fr") }}
-                               {% if app.user is not null %}
-                               <i data-id="{{ product.id }}" class="bi bi-heart-fill favoris {% if product in app.user.favoris %}text-danger{% endif %}"></i>
-                                {% endif %}
+                    </a>   
+                    <div class="card-body p-0 mt-1 d-flex flex-wrap">    
+                        <a href="{{ path('app_front_product', {slug: product.slug})}}">
+                            <h6 class="card-title w-100">{{ product.name }}</h6>
+                            <div class="min-desc-product w-100">{{ product.descriptionImage|raw }}</div>
+                        </a>
+                        <p class="card-text d-flex w-100 justify-content-between align-items-center align-self-end my-2">
+                            {# Prix #} 
+                            {{ product.price|format_currency('EUR', locale="fr") }}
+                            
+                            {# début Icone FAVORIS #} 
+                            {% if app.user is not null %}
+                            <i data-id="{{ product.id }}" class="bi bi-heart-fill favoris {% if product in app.user.favoris %}text-danger{% endif %}"></i>
+                            {% endif %}
+                            {# fin Icone FAVORIS #}
+                            
                             {# début Icone PANIER #}                                                       
-                            <a href="{{ path('app_addCart', {'id':product.id})}}" class="btn btn-light"><i class="bi bi-basket-fill"></i></a>                           
+                            <a href="{{ path('app_addCart', {'id':product.id})}}" class="btn {% if app.session.get('cart') %}{% for element in cart.products %}{% if element.product.id == product.id %} btn-success text-white{% endif %}{% endfor %}{% else %}btn-light{% endif %}"><i class="bi bi-basket-fill"></i></a>                           
                             {# fin Icone PANIER #}
-                                
-                            </p> 
-                                                 
-                        </div>
+                        </p>              
                     </div>
-                    
-
+                </div>
                 {% endif %}
-
             {% endfor %}
-
         </div>
-    </div>
+    </section>
+    {# fin product #}
 
-    <div class="container">
-        <hr class="featurette-divider">
+    {# Début Blog #}
+    <div class="container margin_section">
         <h2 class="mb-2 text-center">Blog :</h2>
-        <hr class="featurette-divider mb-5">
-       
 
         {% for article in articles %}
             <div class="row featurette p-5">
             {% if loop.index is divisible by(2) %}
                 <div class="featurette-heading col-md-7">
-                    <h2 class="fw-normal">
+                    <h3 class="fw-normal">
                         {{ article.title }} 
                         {% if article.subtitle is not null %}<span class="text-muted">{{ article.subtitle}}</span>{% endif %}
-                    </h2>
+                    </h3>
                     <div>{{ article.description|raw }}</div>
                 </div>
                 <div class="col-md-5">
@@ -138,21 +113,23 @@
                 </div>
 
                 <div class="featurette-heading col-md-7">
-                    <h2 class="fw-normal">
+                    <h3 class="fw-normal">
                         {{ article.title }} 
                         {% if article.subtitle is not null %}<span class="text-muted">{{ article.subtitle}}</span>{% endif %}
-                    </h2>
+                    </h3>
                     <div>{{ article.description|raw }}</div>
                 </div>
             {% endif %}
-
             </div>
-
         <hr class="featurette-divider">
         {% endfor %}
     </div>
+    {# Fin Blog #}
+
 </div>
 {% endblock %}
+
+
 
 {% block javascripts %}
 <script>
@@ -171,21 +148,5 @@ $(".favoris").on("click", function(event){
         }       
     })
 });
-
-{# $(".panier").on("click", function(event){
-    let productId = $(this).attr("data-id");
-    let panier = $(this);
-    let action = "add";
-    if($(this).hasClass("text-success")) action = "remove";
-    $.ajax({
-        url: "{{ path('app_front_add_panier')}}",
-        type: 'POST',
-        data: "id="+productId+"&action="+action
-    }).done(function(response){
-        if(response.success){
-            ($(panier).hasClass("text-success")) ? $(panier).removeClass("text-success") : $(panier).addClass("text-success")
-        }       
-    })
-}); #}
 </script>
 {% endblock %}

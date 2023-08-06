@@ -14,6 +14,12 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class FrontShopController extends AbstractController
 {
+    private $cartServices;
+    public function __construct(CartServices $cartServices)
+    {
+        $this->cartServices = $cartServices;
+    }
+    
     #[Route('/boutique', name: 'app_front_shop')]
     public function index(CategoryRepository $categoryRepository, Request $request, ProductRepository $productRepository, PaginatorInterface $paginator ): Response
     {
@@ -29,6 +35,7 @@ class FrontShopController extends AbstractController
             'current_menu' => 'shop',
             'products' => $pagination,
             'categories' => $categoryRepository->findAll(),
+            'cart' => $this->cartServices->getFullCart(),
         ]);
     }
     // Afficher les produits faisant partie d'une catégorie spécifique
@@ -43,6 +50,7 @@ class FrontShopController extends AbstractController
             'selectedCategory' => $selectedCategory,
             'categories' => $categoryRepository->findAll(),
             'current_menu' => 'shop',
+            'cart' => $this->cartServices->getFullCart(),
         ])
         ;
     }

@@ -3,15 +3,24 @@ body{
         background-color: #1A3287;
     }
     main{
+        min-height: 85vh;
         *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
             font-family: 'Urbanist', cursive;
         }
-        min-height: 80vh;
+        
         h2 {
             font-family: 'Rampart One', cursive; 
             font-weight: 600;
             font-size: 3rem;
-            
+            border-top: 1px solid rgb(170, 170, 170);
+            border-bottom: 1px solid rgb(170, 170, 170);
+            padding: 15px;
+        }
+        .margin_section{
+            margin-bottom: 100px;
         }
         .fw-normal {
             font-family: 'Cardo', serif;
@@ -28,25 +37,17 @@ body{
             margin-right: 3%;
         }
         a{
-            color:black !important ;
+            color:black !important;
             text-decoration: none;            
         }
         .link{
             color:#1A3287;
             text-decoration: underline;
         }
-        .home-card-product{
+        .product_card{
+            width: 11rem;
             &:hover{
-                background-color: rgb(218, 219, 218);
-                font-size: 1.1rem;
-                font-weight: 600;
-                
-            }
-        }
-        .shop-card-product{
-            &:hover{
-                background-color: rgb(218, 219, 218);
-                
+                border-color: green !important;
             }
         }
         .min-desc-product{
