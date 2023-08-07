@@ -44,7 +44,10 @@
         </div>
         <div class="col-10">
             {{ form_row(form.object) }}
-            {{ form_row(form.message) }}
+        </div>
+        <div class="col-10 d-flex flex-column">
+            {{ form_label(form.message) }}
+            {{ form_widget(form.message) }}
         </div>
         {# <div class="col-10 d-none">    
             {{ form_row(form.date) }}

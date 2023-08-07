@@ -4,90 +4,81 @@
 
 {% block body %}
 <div class="container-fluid">
-    <div class="row">
-                {# En-tête & titre principal  #}
-        <div class="px-md-4 text-center">
-            <img src="{{ asset('/images/home_shop.png')}}" alt="image de décoration" style="width: 70%;">            
 
-            <h2 class="mb-2">Nos Produits :</h2>
+    {# Début en-tête & titre principal  #}
+    <div class="px-md-4 text-center">
+        <img src="{{ asset('/images/home_shop.png')}}" alt="image de décoration" Class="baniere_secondary_page">            
+        <h2 class="mb-2">Nos Produits :</h2>
+    </div>
+    {# Fin en-tête & titre principal  #}
+    
+    {# Titre catégories #}
+    <div class="container-fluid d-flex flex-wrap justify-content-between mt-4">
+        <h6 class="ms-2">Filtrer par catégorie :</h6>
+        {# Affichage du bouton pour voir tous les produits #}
+        <a href="{{ path('app_front_shop') }}" class="btn {% if app.user is not null %}text-white bg-blue{% else %}btn-success text-white{% endif %}">Afficher tous les produits</a>
+    </div>
 
+    {# Affichage des catégories #}
+    <div class="container d-flex flex-wrap justify-content-between">
+        {% for category in categories %}
+        <div class="col-3 mt-5 ">
+            <a href="{{ asset('images/category/') ~ category.imageName}}" data-lightbox data-image-alt="{% if category.imageDescription is not null %} {{ category.imageDescription }}{% else %} Image de la catégorie : {{ category.Name}} {% endif %}">
+                <img 
+                    class="bd-placeholder-img rounded-circle w-15"
+                    src="{{ asset('images/category/') ~ category.imageName}}" 
+                    alt="{% if category.imageDescription is not null %} {{ category.imageDescription }}
+                    {% else %} Image de la catégorie : {{ category.Name}} {% endif %}"
+                />
+            </a>
+            <a href="{{ path('app_front_filteredProducts', {slug: category.slug})}}">{{ category.name}}</a>
         </div>
-        <div class="container-fluid d-flex flex-wrap justify-content-between">
-            <h6 class="ms-2">Filtrer par catégorie :</h6>
-            {% if app.user is not null %}
-            {# Affichage du bouton pour voir tous les produits #}
-            <a href="{{ path('app_front_shop') }}" class="btn text-white" style="background-color: #1A3287;">Afficher tous les produits</a>
-            {% else %}            
-            {# Affichage du bouton pour voir tous les produits #}
-            <a href="{{ path('app_front_shop') }}" class="btn btn-success text-white">Afficher tous les produits</a>
-            {% endif %}
-        </div>
-                {# Affichage des catégories #}
-        <div class="container d-flex flex-wrap justify-content-between">
-            
-            {% for category in categories %}
-            <div class="col-3 mt-5 ">
-                <a href="{{ asset('images/category/') ~ category.imageName}}" data-lightbox data-image-alt="{% if category.imageDescription is not null %} {{ category.imageDescription }}{% else %} Image de la catégorie : {{ category.Name}} {% endif %}">
-                    <img 
-                        class="bd-placeholder-img rounded-circle"
-                        style="width: 15%;"
-                        src="{{ asset('images/category/') ~ category.imageName}}" 
-                        alt="{% if category.imageDescription is not null %} {{ category.imageDescription }}
-                        {% else %} Image de la catégorie : {{ category.Name}} {% endif %}"
-                    />
-                </a>
-                <a href="{{ path('app_front_filteredProducts', {slug: category.slug})}}">{{ category.name}}</a>
-            </div>
-            {% endfor %}
-        </div>
+        {% endfor %}
+    </div>
+    {# Fin catégories #}
 
-                {# Affichage des produits #}
-        <div class="row ">
-       
+    {# Début produits #}
+    <section class="row ">
         {% for product in selectedCategory.products %}
         <div class="col-6 col-md-4 col-lg-2 my-5 d-flex flex-wrap justify-content-around align-items-stretch">
-
             <div class="card p-3">
                 <a href="{{ path('app_front_product', {slug: product.slug})}}">
                     <img src="{{ asset('images/product/') ~ product.imageName}}" class="card-img-top" alt="{{ product.descriptionImage }}">
                 </a>   
-                    <div class="card-body p-0 mt-1 d-flex flex-wrap">                            
-                        <div>
-                        <a href="{{ path('app_front_product', {slug: product.slug})}}">
+                <div class="card-body p-0 mt-1 d-flex flex-wrap">                            
+                    <a href="{{ path('app_front_product', {slug: product.slug})}}">
                         <h6 class="card-title w-100">{{ product.name }}</h6>
                         <div class="min-desc-product w-100">{{ product.descriptionImage|raw }}</div>
-                        </a>
-                        </div>
-                        <p class="card-text d-flex w-100 justify-content-between align-items-center align-self-end my-2">
-                       
-                            {{ product.price|format_currency('EUR', locale="fr") }}
-                            
-                            {% if app.user is not null %}
-                            <i data-id="{{ product.id }}" class="bi bi-heart-fill favoris {% if product in app.user.favoris %}text-danger{% endif %}"></i>
-                            {% endif %}
-                          
-                            {# début Icone PANIER #}                                                       
-                            <a href="{{ path('app_addCart', {'id':product.id})}}" class="btn {% if app.session.get('cart') %}{% for element in cart.products %}{% if element.product.id == product.id %} btn-success text-white{% endif %}{% endfor %}{% else %}btn-light{% endif %}"><i class="bi bi-basket-fill"></i></a>                           
-                            {# fin Icone PANIER #}
-
-                        </p> 
-                                                 
-                    </div>
+                    </a>
+                  
+                    <p class="card-text d-flex w-100 justify-content-between align-items-center align-self-end my-2">
+                
+                        {{ product.price|format_currency('EUR', locale="fr") }}
+                        
+                        {# début Icone FAVORIS #}                            
+                        {% if app.user is not null %}
+                        <i data-id="{{ product.id }}" class="bi bi-heart-fill favoris {% if product in app.user.favoris %}text-danger{% endif %}"></i>
+                        {% endif %}
+                        {# fin Icone FAVORIS #}
+                    
+                        {# début Icone PANIER #}                                                       
+                        <a href="{{ path('app_addCart', {'id':product.id})}}" class="btn {% if app.session.get('cart') %}{% for element in cart.products %}{% if element.product.id == product.id %} btn-success text-white{% endif %}{% endfor %}{% else %}btn-light{% endif %}"><i class="bi bi-basket-fill"></i></a>                           
+                        {# fin Icone PANIER #}
+                    </p>
+                </div>
             </div>
         </div>
         {% else %}
         {# Affichage d'une alerte si aucun produit présent dans une catégorie #}
         <div class="d-flex justify-content-center my-5">
-            <div class="alert alert-warning text-center" role="alert" style="width: 80%;">
+            <div class="alert alert-warning text-center w-80" role="alert">
                 <p>La catégorie sélectionnée ne contient aucun produit.</p>
-            
             </div>
         </div>
         {% endfor %}
-        
+    </section>
+    {# Fin produits #}
 
-        </div>
-    </div>
 </div>
 {% endblock %}
 
@@ -108,21 +99,5 @@ $(".favoris").on("click", function(event){
         }       
     })
 });
-
-{# $(".panier").on("click", function(event){
-    let productId = $(this).attr("data-id");
-    let panier = $(this);
-    let action = "add";
-    if($(this).hasClass("text-success")) action = "remove";
-    $.ajax({
-        url: "{{ path('app_front_add_panier')}}",
-        type: 'POST',
-        data: "id="+productId+"&action="+action
-    }).done(function(response){
-        if(response.success){
-            ($(panier).hasClass("text-success")) ? $(panier).removeClass("text-success") : $(panier).addClass("text-success")
-        }       
-    })
-}); #}
 </script>
 {% endblock %}
