@@ -16,17 +16,17 @@
     <h6 class="ms-2 mt-4">Filtrer par catégorie :</h6>
     <section class="container d-flex flex-wrap justify-content-between">
         {% for category in categories %}
-            <div class="col-3 mt-5 ">
-            <a href="{{ asset('images/category/') ~ category.imageName}}" data-lightbox data-image-alt="{% if category.imageDescription is not null %} {{ category.imageDescription }}{% else %} Image de la catégorie : {{ category.Name}} {% endif %}">
-                <img 
-                    class="bd-placeholder-img rounded-circle w-15"
-                    src="{{ asset('images/category/') ~ category.imageName}}" 
-                        alt="{% if category.imageDescription is not null %} {{ category.imageDescription }}
-                    {% else %} Image de la catégorie : {{ category.Name}} {% endif %}"
-                />
-            </a>
-            <a href="{{ path('app_front_filteredProducts', {slug: category.slug})}}">{{ category.name}}</a>
-        </div>
+            <div class="col-3 mt-5 d-flex flex-column flex-wrap align-items-center">
+                <a href="{{ asset('images/category/') ~ category.imageName}}" data-lightbox data-image-alt="{% if category.imageDescription is not null %} {{ category.imageDescription }}{% else %} Image de la catégorie : {{ category.Name}} {% endif %}">
+                    <img 
+                        class="bd-placeholder-img rounded-circle w-10"
+                        src="{{ asset('images/category/') ~ category.imageName}}" 
+                            alt="{% if category.imageDescription is not null %} {{ category.imageDescription }}
+                        {% else %} Image de la catégorie : {{ category.Name}} {% endif %}"
+                    />
+                </a>
+                <a href="{{ path('app_front_filteredProducts', {slug: category.slug})}}" class="text-center">{{ category.name}}</a>
+            </div>
             {% endfor %}
         </section>
     {# Fin catégories #}
