@@ -4,4 +4,4 @@ Pour cloner ce projet :
 - puis : cd Symfony_mon-petit-geste-eco
 - faire le chargement des vendors avec la commande : composer install
 
-Dans le fichier .env mettre à jour les données liées à la base de données.
+Dans le fichier .env mettre à jour les données liées à la base de données, et au MAILER_DSN.
